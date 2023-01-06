@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MyWallet.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AppContext")));
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContext")));
 
 var app = builder.Build();
 
