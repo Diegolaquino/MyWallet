@@ -45,9 +45,11 @@ namespace MyWallet.Repositories.Repositories
             await _context.AddAsync(category);
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task<IEnumerable<CategoryDTO>> GetAll(OwnerParametersDTO ownerParameters)
         {
-            var categories = await _context.Categories.AsNoTracking().ToListAsync();
+            var categories = await _context.Categories.OrderBy(on => on.Name)
+                    .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
+                    .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync();
 
             return categories;
         }

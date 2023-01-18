@@ -1,4 +1,5 @@
 ﻿using MyWallet.Data;
+using MyWallet.Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MyWallet.Repositories.Contracts
         Task<T> GetById(Guid id);
         void Update(T entity);
         Task Delete(Guid id);
-        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> GetAll(OwnerParametersDTO ownerParameters);
         Task<T> Save(T entity);
     }
 }
