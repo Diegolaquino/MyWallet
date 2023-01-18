@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyWallet.Data\MyWallet.Data.csproj" />
+    <ProjectReference Include="..\MyWallet.Domain\MyWallet.Domain.csproj" />
+    <ProjectReference Include="..\MyWallet.Shared\MyWallet.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
