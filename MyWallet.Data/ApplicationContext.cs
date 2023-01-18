@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyWallet.Domain.Models;
 
 namespace MyWallet.Data
 {
@@ -7,5 +8,7 @@ namespace MyWallet.Data
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         { }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
