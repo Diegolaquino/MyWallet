@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWallet.Repositories.Contracts;
 using MyWallet.Shared.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,11 +10,16 @@ namespace MyWallet.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoriesController(ICategoryRepository categoryRepository)
+        {
+            this._categoryRepository = categoryRepository;
+        }
         // GET: api/<CategoriesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IAsyncEnumerable<CategoryDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _categoryRepository.GetAll();
         }
 
         // GET api/<CategoriesController>/5
@@ -27,6 +33,12 @@ namespace MyWallet.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CategoryDTO category)
         {
+            if (category is null)
+                return BadRequest("objeto nulo");
+
+            _categoryRepository.Save(category);
+
+            return Ok(category);
         }
 
         // PUT api/<CategoriesController>/5
