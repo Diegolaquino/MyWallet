@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyWallet.Services.Contracts;
 using MyWallet.Shared.DTO;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,10 +17,17 @@ namespace MyWallet.API.Controllers
             this._categoryService = categoryService;
         }
         // GET: api/<CategoriesController>
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryDTO>), (int)HttpStatusCode.NoContent)]
         [HttpGet]
-        public async Task<IAsyncEnumerable<CategoryDTO>> Get()
+        public async Task<IActionResult> Get([FromQuery]OwnerParametersDTO filters)
         {
-            return await _categoryService.GetAll();
+            var categories = await _categoryService.GetAll(filters);
+
+            if (!categories.Any())
+                return NoContent();
+
+            return Ok(categories);
         }
 
         // GET api/<CategoriesController>/5
@@ -29,17 +37,17 @@ namespace MyWallet.API.Controllers
         //    return "value";
         //}
 
-        //// POST api/<CategoriesController>
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody] CategoryDTO category)
-        //{
-        //    if (category is null)
-        //        return BadRequest("objeto nulo");
+        // POST api/<CategoriesController>
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CategoryDTO requestCategory)
+        {
+            if (requestCategory is null)
+                return BadRequest("objeto nulo");
 
-        //    _categoryRepository.Save(category);
+            var category = await _categoryService.Save(requestCategory);
 
-        //    return Ok(category);
-        //}
+            return Ok(category);
+        }
 
         //// PUT api/<CategoriesController>/5
         //[HttpPut("{id}")]

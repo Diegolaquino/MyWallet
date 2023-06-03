@@ -1,13 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyWallet.Data;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Contracts;
 using MyWallet.Shared.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyWallet.Repositories.Repositories
 {
@@ -19,33 +15,35 @@ namespace MyWallet.Repositories.Repositories
             _context = context;
         }
 
-        public async Task<CategoryDTO> GetById(Guid id)
+        public async Task<Category> GetByIdAsync(Guid id)
         {
-            var obj = await _context.Set<CategoryDTO>().FindAsync(id);
+            var obj = await _context.Set<Category>().FindAsync(id);
             return obj;
         }
 
-        public void Update(CategoryDTO entity)
+        public async Task UpdateAsync(Category entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            var obj = await _context.Set<CategoryDTO>().FindAsync(id);
+            var obj = await _context.Set<Category>().FindAsync(id);
 
             if (obj is null)
                 return;
 
-            _context.Entry(obj).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            _context.Entry(obj).State = EntityState.Deleted;
         }
 
-        public async Task Save(CategoryDTO category)
+        public async Task<Category> AddAsync(Category category)
         {
             await _context.AddAsync(category);
+
+            return category;
         }
 
-        public async Task<IEnumerable<CategoryDTO>> GetAll(OwnerParametersDTO ownerParameters)
+        public async Task<IEnumerable<Category>> GetAllAsync(OwnerParametersDTO ownerParameters)
         {
             var categories = await _context.Categories.OrderBy(on => on.Name)
                     .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)

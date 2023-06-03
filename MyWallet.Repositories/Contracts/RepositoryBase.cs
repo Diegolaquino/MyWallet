@@ -10,10 +10,10 @@ namespace MyWallet.Repositories.Contracts
 {
     public interface IRepositoryBase<T> where T : class
     {
-        Task<T> GetById(Guid id);
-        void Update(T entity);
-        Task Delete(Guid id);
-        Task<IEnumerable<T>> GetAll(OwnerParametersDTO ownerParameters);
-        Task<T> Save(T entity);
+        Task<T> GetByIdAsync(Guid id);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(Guid id);
+        Task<IEnumerable<T>> GetAllAsync(OwnerParametersDTO ownerParameters);
+        Task<T> AddAsync(T entity);
     }
 }

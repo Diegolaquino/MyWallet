@@ -10,5 +10,7 @@ namespace MyWallet.Services.Contracts
     public interface ICategoryService
     {
         Task<IEnumerable<CategoryDTO>> GetAll(OwnerParametersDTO ownerParameters);
+
+        Task<CategoryDTO> Save(CategoryDTO categoryDTO);
     }
 }
