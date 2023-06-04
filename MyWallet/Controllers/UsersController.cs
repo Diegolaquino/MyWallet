@@ -23,7 +23,7 @@ namespace MyWallet.API.Controllers
 
             var user = await _userService.CreateUser(userDTO);
 
-            return Created("", user);
+            return StatusCode(user.StatusCode, user);
         }
     }
 }

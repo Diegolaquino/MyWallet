@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace MyWallet.Services.Contracts
 {
-    public interface ICategoryService
+    public interface IUserService
     {
-        Task<IEnumerable<CategoryDTO>> GetAll(OwnerParametersDTO ownerParameters);
-
-        Task<ResponseBase> Save(CategoryEntryDTO categoryDTO);
+        Task<ResponseBase> CreateUser(CreateUserDTO userDTO);
     }
 }

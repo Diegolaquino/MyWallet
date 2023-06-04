@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWallet.Domain.Models;
 using MyWallet.Services.Contracts;
 using MyWallet.Shared.DTO;
 using System.Net;
@@ -39,14 +40,14 @@ namespace MyWallet.API.Controllers
 
         // POST api/<CategoriesController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CategoryDTO requestCategory)
+        public async Task<IActionResult> Post([FromBody] CategoryEntryDTO requestCategory)
         {
             if (requestCategory is null)
                 return BadRequest("objeto nulo");
 
             var category = await _categoryService.Save(requestCategory);
 
-            return Ok(category);
+            return StatusCode(category.StatusCode, category);
         }
 
         //// PUT api/<CategoriesController>/5

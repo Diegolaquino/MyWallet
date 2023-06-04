@@ -1,5 +1,7 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyWallet.Data;
+using MyWallet.IoC.Config;
 using MyWallet.Repositories.Base;
 using MyWallet.Repositories.Contracts;
 using MyWallet.Repositories.Repositories;
@@ -16,14 +18,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContext")));
-    options.UseInMemoryDatabase("diegoteste"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContext")));
+    //options.UseInMemoryDatabase("diegoteste"));
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUoW, UoW>(); 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddSingleton(AutoMapperConfig.Configure());
+
 
 
 var app = builder.Build();
