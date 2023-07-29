@@ -28,19 +28,30 @@ namespace MyWallet.Services
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
-        public async Task<IEnumerable<CategoryDTO>> GetAll(OwnerParametersDTO ownerParameters)
+        public async Task<ResponseBase> GetAll(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken)
         {
-            var categories = await _categoryRepository.GetAllAsync(ownerParameters);
-            return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
+            try
+            {
+                var categories = await _categoryRepository.GetAllAsync(ownerParameters, cancellationToken);
+
+                var response = new SucessResponse<IEnumerable<CategoryDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<CategoryDTO>>(categories));
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new FailureResponse((int)HttpStatusCode.InternalServerError, "InternalServerError", ex);
+            }
         }
 
-        public async Task<ResponseBase> Save(CategoryEntryDTO categoryDTO)
+        public async Task<ResponseBase> Save(CategoryEntryDTO categoryDTO, CancellationToken cancellationToken)
         {
             try
             {
                 var category = _mapper.Map<Category>(categoryDTO);
 
-                var obj = await _categoryRepository.AddAsync(category);
+                var obj = await _categoryRepository.AddAsync(category, cancellationToken);
                 await _unitOfWork.CommitAsync();
 
                 return new SucessResponse<CategoryDTO>((int)HttpStatusCode.Created, _mapper.Map<CategoryDTO>(obj));
@@ -48,7 +59,20 @@ namespace MyWallet.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return new FailureResponse((int)HttpStatusCode.InternalServerError, "An error occurred in the category registration flow", ex.Message, ex.StackTrace);
+                return new FailureResponse((int)HttpStatusCode.InternalServerError, "An error occurred in the category registration flow", ex, ex.StackTrace);
+            }
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _categoryRepository.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
             }
         }
     }

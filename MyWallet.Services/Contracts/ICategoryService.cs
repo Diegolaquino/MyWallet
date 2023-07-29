@@ -10,8 +10,10 @@ namespace MyWallet.Services.Contracts
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<CategoryDTO>> GetAll(OwnerParametersDTO ownerParameters);
+        Task<ResponseBase> GetAll(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken);
 
-        Task<ResponseBase> Save(CategoryEntryDTO categoryDTO);
+        Task<ResponseBase> Save(CategoryEntryDTO categoryDTO, CancellationToken cancellationToken);
+
+        Task DeleteAsync(Guid id);
     }
 }

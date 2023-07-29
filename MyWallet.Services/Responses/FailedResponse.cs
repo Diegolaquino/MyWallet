@@ -11,10 +11,10 @@ namespace MyWallet.Services.Responses
         public string Details { get; private set; }
         public string StackTrace { get; private set; }
 
-        public FailureResponse(int statusCode, string message, string details = "", string stackTrace = "") : base(statusCode, message)
+        public FailureResponse(int statusCode, string userErroMessage, Exception ex = null, string details = "") : base(statusCode, userErroMessage)
         {
-            Details = details;
-            StackTrace = stackTrace;
+            Details = ex?.Message ?? details;
+            StackTrace = ex?.StackTrace ?? "";
         }
     }
 }

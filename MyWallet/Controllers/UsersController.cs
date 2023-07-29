@@ -16,12 +16,12 @@ namespace MyWallet.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserDTO userDTO)
+        public async Task<IActionResult> CreateUser([FromBody]CreateUserDTO userDTO, CancellationToken cancellationToken)
         {
             if (userDTO is null)
                 return BadRequest("Os dados devem ser preenchidos para criação de usuário.");
 
-            var user = await _userService.CreateUser(userDTO);
+            var user = await _userService.CreateUser(userDTO, cancellationToken);
 
             return StatusCode(user.StatusCode, user);
         }

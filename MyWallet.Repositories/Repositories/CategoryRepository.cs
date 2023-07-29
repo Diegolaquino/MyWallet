@@ -15,7 +15,7 @@ namespace MyWallet.Repositories.Repositories
             _context = context;
         }
 
-        public async Task<Category> GetByIdAsync(Guid id)
+        public async Task<Category> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var obj = await _context.Set<Category>().FindAsync(id);
             return obj;
@@ -36,18 +36,18 @@ namespace MyWallet.Repositories.Repositories
             _context.Entry(obj).State = EntityState.Deleted;
         }
 
-        public async Task<Category> AddAsync(Category category)
+        public async Task<Category> AddAsync(Category category, CancellationToken cancellationToken)
         {
-            await _context.AddAsync(category);
+            await _context.AddAsync(category, cancellationToken);
 
             return category;
         }
 
-        public async Task<IEnumerable<Category>> GetAllAsync(OwnerParametersDTO ownerParameters)
+        public async Task<IEnumerable<Category>> GetAllAsync(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken)
         {
             var categories = await _context.Categories.OrderBy(on => on.Name)
                     .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
-                    .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync();
+                    .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync(cancellationToken);
 
             return categories;
         }

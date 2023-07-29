@@ -10,4 +10,13 @@
     <Folder Include="Config\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyWallet.Domain\MyWallet.Domain.csproj" />
+    <ProjectReference Include="..\MyWallet.Shared\MyWallet.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
