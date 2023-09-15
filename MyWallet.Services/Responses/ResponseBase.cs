@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MyWallet.Services.Responses
@@ -15,6 +16,7 @@ namespace MyWallet.Services.Responses
             Message = message;
         }
 
+        [JsonIgnore]
         public int StatusCode { get; protected set; }
 
         public string Message { get; protected set; }

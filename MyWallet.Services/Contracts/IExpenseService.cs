@@ -2,7 +2,7 @@
 
 namespace MyWallet.Services.Contracts
 {
-    public interface ICategoryService : IBaseService<CategoryEntryDTO>
+    public interface IExpenseService : IBaseService<ExpenseEntryDTO>
     {
     }
 }

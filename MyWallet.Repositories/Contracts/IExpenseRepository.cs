@@ -2,8 +2,7 @@
 
 namespace MyWallet.Repositories.Contracts
 {
-    public interface ICategoryRepository : IRepositoryBase<Category>
+    public interface IExpenseRepository : IRepositoryBase<Expense>
     {
-
     }
 }

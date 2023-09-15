@@ -8,17 +8,17 @@ using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
 using System.Net;
 
-namespace MyWallet.Services
+namespace MyWallet.Services.Services
 {
-    public class CategoryService : ICategoryService
+    public class ExpenseService : IExpenseService
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IExpenseRepository _expenseRepository;
         private readonly IMapper _mapper;
         private readonly IUoW _unitOfWork;
-        private readonly ILogger<CategoryService> _logger;
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IUoW unitOfWork, ILogger<CategoryService> logger)
+        private readonly ILogger<ExpenseService> _logger;
+        public ExpenseService(IExpenseRepository expenseRepository, IMapper mapper, IUoW unitOfWork, ILogger<ExpenseService> logger)
         {
-            _categoryRepository = categoryRepository;
+            _expenseRepository = expenseRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -27,9 +27,9 @@ namespace MyWallet.Services
         {
             try
             {
-                var categories = await _categoryRepository.GetAllAsync(ownerParameters, cancellationToken);
+                var expenses = await _expenseRepository.GetAllAsync(ownerParameters, cancellationToken);
 
-                var response = new SucessResponse<IEnumerable<CategoryDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Category>, List<CategoryDTO>>(categories));
+                var response = new SucessResponse<IEnumerable<ExpenseDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Expense>, List<ExpenseDTO>>(expenses));
 
                 return response;
             }
@@ -40,21 +40,21 @@ namespace MyWallet.Services
             }
         }
 
-        public async Task<ResponseBase> Save(CategoryEntryDTO categoryDTO, CancellationToken cancellationToken)
+        public async Task<ResponseBase> Save(ExpenseEntryDTO expenseDTO, CancellationToken cancellationToken)
         {
             try
             {
-                var category = _mapper.Map<Category>(categoryDTO);
+                var expense = _mapper.Map<Expense>(expenseDTO);
 
-                var obj = await _categoryRepository.AddAsync(category, cancellationToken);
+                var obj = await _expenseRepository.AddAsync(expense, cancellationToken);
                 await _unitOfWork.CommitAsync();
 
-                return new SucessResponse<CategoryDTO>((int)HttpStatusCode.Created, _mapper.Map<CategoryDTO>(obj));
+                return new SucessResponse<ExpenseDTO>((int)HttpStatusCode.Created, _mapper.Map<ExpenseDTO>(obj));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return new FailureResponse((int)HttpStatusCode.InternalServerError, "An error occurred in the category registration flow", ex, ex.StackTrace ?? "");
+                return new FailureResponse((int)HttpStatusCode.InternalServerError, "An error occurred in the expense registration flow", ex, ex.StackTrace ?? "");
             }
         }
 
@@ -62,7 +62,7 @@ namespace MyWallet.Services
         {
             try
             {
-                await _categoryRepository.DeleteAsync(id);
+                await _expenseRepository.DeleteAsync(id);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -72,11 +72,11 @@ namespace MyWallet.Services
             }
         }
 
-        public async Task UpdateAsync(CategoryEntryDTO category, CancellationToken cancellationToken)
+        public async Task UpdateAsync(ExpenseEntryDTO expense, CancellationToken cancellationToken)
         {
             try
             {
-                await _categoryRepository.UpdateAsync(_mapper.Map<CategoryEntryDTO, Category>(category), cancellationToken);
+                await _expenseRepository.UpdateAsync(_mapper.Map<ExpenseEntryDTO, Expense>(expense), cancellationToken);
 
                 await _unitOfWork.CommitAsync();
             }
@@ -89,12 +89,12 @@ namespace MyWallet.Services
 
         public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
         {
-            var categoy = await _categoryRepository.GetByIdAsync(id, cancellationToken);
+            var expense = await _expenseRepository.GetByIdAsync(id, cancellationToken);
 
-            if (categoy is null)
+            if (expense is null)
                 return new FailureResponse((int)HttpStatusCode.NotFound, "");
 
-            return new SucessResponse<CategoryDTO>((int)HttpStatusCode.OK, _mapper.Map<CategoryDTO>(categoy));
+            return new SucessResponse<ExpenseDTO>((int)HttpStatusCode.OK, _mapper.Map<ExpenseDTO>(expense));
         }
     }
 }

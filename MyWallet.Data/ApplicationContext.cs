@@ -10,5 +10,7 @@ namespace MyWallet.Data
         { }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Expense> Expenses { get; set; }
     }
 }

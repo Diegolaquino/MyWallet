@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyWallet.Domain.Models
+﻿namespace MyWallet.Domain.Models
 {
     public class Expense : BaseEntity
     {
@@ -22,7 +16,13 @@ namespace MyWallet.Domain.Models
 
         public Category Category { get; set; }  
 
-        public IEnumerable<string> Tags { get; set; }
+        public virtual List<Tag> Tags { get; set; }
+       
+    }
 
+    public class Tag
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

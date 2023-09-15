@@ -21,8 +21,9 @@ namespace MyWallet.Repositories.Repositories
             return obj;
         }
 
-        public async Task UpdateAsync(Category entity)
+        public async Task UpdateAsync(Category entity, CancellationToken cancellationToken)
         {
+            _context.Categories.ExecuteUpdate(c => c.SetProperty(o => o.Name, entity.Name));
             _context.Entry(entity).State = EntityState.Modified;
         }
 

@@ -4,8 +4,7 @@ using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
 using System.Net;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading;
 
 namespace MyWallet.API.Controllers
 {
@@ -22,7 +21,7 @@ namespace MyWallet.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(IEnumerable<CategoryDTO>), (int)HttpStatusCode.NoContent)]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]OwnerParametersDTO filters, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll([FromQuery]OwnerParametersDTO filters, CancellationToken cancellationToken)
         {
             var response = await _categoryService.GetAll(filters, cancellationToken);
 
@@ -30,11 +29,13 @@ namespace MyWallet.API.Controllers
         }
 
         // GET api/<CategoriesController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
+        {
+            var response = await _categoryService.GetEntity(id, cancellationToken);
+
+            return StatusCode(response.StatusCode, response);
+        }
 
         // POST api/<CategoriesController>
         [ProducesResponseType(typeof(SucessResponse<CategoryDTO>), (int)HttpStatusCode.Created)]
@@ -49,8 +50,11 @@ namespace MyWallet.API.Controllers
 
         // PUT api/<CategoriesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put([FromBody] CategoryEntryDTO value, CancellationToken cancellationToken)
         {
+            await _categoryService.UpdateAsync(value, cancellationToken);
+
+            return Ok();
         }
 
         // DELETE api/<CategoriesController>/5
