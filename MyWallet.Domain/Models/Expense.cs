@@ -17,7 +17,9 @@
         public Category Category { get; set; }  
 
         public virtual List<Tag> Tags { get; set; }
-       
+
+        public int Installments { get; set; } = 1;
+
     }
 
     public class Tag
