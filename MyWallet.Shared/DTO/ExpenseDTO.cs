@@ -9,7 +9,7 @@
     {
         public Decimal Value { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         public CategoryDTO Category { get; set; }  
         

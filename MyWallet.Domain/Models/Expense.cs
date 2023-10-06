@@ -20,6 +20,8 @@
 
         public int Installments { get; set; } = 1;
 
+        public bool Paid { get; set; }  
+
     }
 
     public class Tag

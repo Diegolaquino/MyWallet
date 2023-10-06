@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using MyWallet.Data.Migrations;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Base;
 using MyWallet.Repositories.Contracts;
@@ -95,6 +96,16 @@ namespace MyWallet.Services.Services
                 return new FailureResponse((int)HttpStatusCode.NotFound, "");
 
             return new SucessResponse<ExpenseDTO>((int)HttpStatusCode.OK, _mapper.Map<ExpenseDTO>(expense));
+        }
+
+        public async Task<ResponseBase> GetExpensesByInterval(ExpenseIntervalDTO expenseInterval, CancellationToken cancellationToken)
+        {
+            var expenses = await _expenseRepository.GetByDateInterval(expenseInterval.Start, expenseInterval.End, cancellationToken);
+
+            if (expenses is null)
+                return new FailureResponse((int)HttpStatusCode.NoContent, "");
+
+            return new SucessResponse<IEnumerable<ExpenseDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<ExpenseDTO>>(expenses));
         }
     }
 }

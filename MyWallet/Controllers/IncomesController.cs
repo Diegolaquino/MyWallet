@@ -7,6 +7,8 @@ using System.Net;
 
 namespace MyWallet.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class IncomesController : ControllerBase
     {
         private readonly IIncomeService _incomeService;

@@ -2,6 +2,7 @@
 using MyWallet.Data;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Contracts;
+using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
 
 namespace MyWallet.Repositories.Repositories
@@ -44,9 +45,17 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task<IEnumerable<Expense>> GetAllAsync(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken)
         {
-            var expenses = await _context.Expenses.OrderBy(on => on.Name)
+            var expenses = await _context.Expenses.OrderBy(on => on.CreatedDate)
                     .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
                     .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync(cancellationToken);
+
+            return expenses;
+        }
+
+        public async Task<IEnumerable<Expense>> GetByDateInterval(DateTime start, DateTime end, CancellationToken cancellationToken)
+        {
+            var expenses = await _context.Expenses.OrderBy(on => on.CreatedDate)
+                   .Where(e => e.CreatedDate >= start && e.CreatedDate <= end).AsNoTracking().ToListAsync(cancellationToken);
 
             return expenses;
         }

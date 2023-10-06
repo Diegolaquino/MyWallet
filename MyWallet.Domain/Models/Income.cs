@@ -2,6 +2,10 @@
 {
     public class Income : BaseEntity
     {
+        public Income()
+        {
+                
+        }
         public Income(Guid id) : base(id)
         {
 
