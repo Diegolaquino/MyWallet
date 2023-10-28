@@ -13,7 +13,7 @@
 
         public CategoryDTO Category { get; set; }  
         
-        public List<string>? Tags { get; set; }
+        public List<TagDTO>? Tags { get; set; }
 
         public string? Comments { get; set; }
 
