@@ -17,6 +17,10 @@ namespace MyWallet.IoC.Config
             {
                 cfg.CreateMap<CategoryEntryDTO, Category>().ReverseMap();
                 cfg.CreateMap<Category, CategoryDTO>();
+                cfg.CreateMap<Tag, TagDTO>();
+                cfg.CreateMap<TagDTO, Tag>();
+                cfg.CreateMap<CategoryDTO, Category>();
+                cfg.CreateMap<WalletDTO, Wallet>().ReverseMap();
                 cfg.CreateMap<ExpenseEntryDTO, Expense>()
                 .ForMember(dest => dest.CreatedDate, opt => opt.Condition(src => src.CreatedDate != null))
                 .ReverseMap();
