@@ -1,8 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWallet.Domain.Models
 {
     [Table("Categories")]
+    [Index(nameof(Name), IsUnique = true)]
     public class Category : BaseEntity
     {
         public Category() : base() { }
@@ -12,6 +15,7 @@ namespace MyWallet.Domain.Models
 
         }
 
+        
         public string Name { get; set; }
     }
 }

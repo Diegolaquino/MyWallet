@@ -1,5 +1,8 @@
-﻿namespace MyWallet.Domain.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MyWallet.Domain.Models
 {
+    [Table("Incomes")]
     public class Income : BaseEntity
     {
         public Income()
@@ -11,7 +14,12 @@
 
         }
 
+        [ForeignKey("CategoryId")]
+        public Guid CategoryId { get; set; }
+
         public Category Category { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Value { get; set; }
 
         public string Name { get; set; }

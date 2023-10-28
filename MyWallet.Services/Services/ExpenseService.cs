@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using MyWallet.Data.Migrations;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Base;
 using MyWallet.Repositories.Contracts;

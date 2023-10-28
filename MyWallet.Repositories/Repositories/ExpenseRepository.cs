@@ -2,7 +2,6 @@
 using MyWallet.Data;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Contracts;
-using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
 
 namespace MyWallet.Repositories.Repositories
@@ -17,7 +16,7 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task<Expense> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var obj = await _context.Set<Expense>().FindAsync(id);
+            var obj = await _context.Set<Expense>().FindAsync(id, cancellationToken);
             return obj;
         }
 
