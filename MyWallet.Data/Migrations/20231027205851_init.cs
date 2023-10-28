@@ -91,7 +91,7 @@ namespace MyWallet.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Expenses_Wallet_WalletId",
                         column: x => x.WalletId,
-                        principalTable: "Wallet",
+                        principalTable: "Wallets",
                         principalColumn: "Id");
                 });
 
