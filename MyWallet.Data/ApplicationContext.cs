@@ -12,5 +12,20 @@ namespace MyWallet.Data
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Expense> Expenses { get; set; }
+
+        public DbSet<Wallet> Wallets { get; set; }
+
+        public DbSet<Income> Incomes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Expense>()
+            .Property(b => b.Value)
+               .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Income>()
+            .Property(b => b.Value)
+               .HasColumnType("decimal(18,2)");
+        }
     }
 }
