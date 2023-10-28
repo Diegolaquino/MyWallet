@@ -23,7 +23,7 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task UpdateAsync(Category entity, CancellationToken cancellationToken)
         {
-            _context.Categories.ExecuteUpdate(c => c.SetProperty(o => o.Name, entity.Name));
+            entity.UpdateDate();
             _context.Entry(entity).State = EntityState.Modified;
         }
 

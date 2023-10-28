@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Base;
 using MyWallet.Repositories.Contracts;
+using MyWallet.Repositories.Repositories;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
@@ -10,25 +11,26 @@ using System.Net;
 
 namespace MyWallet.Services.Services
 {
-    public class IncomeService : IIncomeService
+    public class WalletService : IWalletService
     {
-        private readonly IIncomeRepository _incomeRepository;
+        private readonly IWalletRepository _walletRepository;
         private readonly IUoW _unitOfWork;
-        private readonly ILogger<IncomeService> _logger;
+        private readonly ILogger<WalletService> _logger;
         private readonly IMapper _mapper;
 
-        public IncomeService(IIncomeRepository incomeRepository, IUoW unitOfWork, ILogger<IncomeService> logger, IMapper mapper)
+        public WalletService(IWalletRepository walletRepository, IUoW unitOfWork, ILogger<WalletService> logger, IMapper mapper)
         {
-            _incomeRepository = incomeRepository;
+            _walletRepository = walletRepository;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
         }
+
         public async Task DeleteAsync(Guid id)
         {
             try
             {
-                await _incomeRepository.DeleteAsync(id);
+                await _walletRepository.DeleteAsync(id);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -42,9 +44,9 @@ namespace MyWallet.Services.Services
         {
             try
             {
-                var incomes = await _incomeRepository.GetAllAsync(ownerParameters, cancellationToken);
+                var wallets = await _walletRepository.GetAllAsync(ownerParameters, cancellationToken);
 
-                var response = new SucessResponse<IEnumerable<IncomeDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Income>, List<IncomeDTO>>(incomes));
+                var response = new SucessResponse<IEnumerable<WalletDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Wallet>, List<WalletDTO>>(wallets));
 
                 return response;
             }
@@ -57,37 +59,37 @@ namespace MyWallet.Services.Services
 
         public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
         {
-            var income = await _incomeRepository.GetByIdAsync(id, cancellationToken);
+            var wallet = await _walletRepository.GetByIdAsync(id, cancellationToken);
 
-            if (income is null)
+            if (wallet is null)
                 return new FailureResponse((int)HttpStatusCode.NotFound, "");
 
-            return new SucessResponse<IncomeDTO>((int)HttpStatusCode.OK, _mapper.Map<IncomeDTO>(income));
+            return new SucessResponse<WalletDTO>((int)HttpStatusCode.OK, _mapper.Map<WalletDTO>(wallet));
         }
 
-        public async Task<ResponseBase> Save(IncomeEntryDTO dto, CancellationToken cancellationToken)
+        public async Task<ResponseBase> Save(WalletDTO dto, CancellationToken cancellationToken)
         {
             try
             {
-                var income = _mapper.Map<Income>(dto);
+                var wallet = _mapper.Map<Wallet>(dto);
 
-                var obj = await _incomeRepository.AddAsync(income, cancellationToken);
+                var obj = await _walletRepository.AddAsync(wallet, cancellationToken);
                 await _unitOfWork.CommitAsync();
 
-                return new SucessResponse<IncomeDTO>((int)HttpStatusCode.Created, _mapper.Map<IncomeDTO>(obj));
+                return new SucessResponse<WalletDTO>((int)HttpStatusCode.Created, _mapper.Map<WalletDTO>(obj));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return new FailureResponse((int)HttpStatusCode.InternalServerError, $"An error occurred in the {nameof(Income)} registration flow", ex, ex.StackTrace ?? "");
+                return new FailureResponse((int)HttpStatusCode.InternalServerError, $"An error occurred in the {nameof(Wallet)} registration flow", ex, ex.StackTrace ?? "");
             }
         }
 
-        public async Task UpdateAsync(IncomeEntryDTO entity, CancellationToken cancellationToken)
+        public async Task UpdateAsync(WalletDTO entity, CancellationToken cancellationToken)
         {
             try
             {
-                await _incomeRepository.UpdateAsync(_mapper.Map<IncomeEntryDTO, Income>(entity), cancellationToken);
+                await _walletRepository.UpdateAsync(_mapper.Map<WalletDTO, Wallet>(entity), cancellationToken);
 
                 await _unitOfWork.CommitAsync();
             }

@@ -12,6 +12,11 @@
             Id = id;
         }
 
+        public void UpdateDate()
+        {
+            UpdatedDate = DateTime.Now;
+        }
+
         public Guid Id { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;

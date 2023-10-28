@@ -48,7 +48,7 @@ namespace MyWallet.API.Controllers
         }
 
         // PUT api/<ExpensesController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody] ExpenseEntryDTO value, CancellationToken cancellationToken)
         {
             await _expenseService.UpdateAsync(value, cancellationToken);

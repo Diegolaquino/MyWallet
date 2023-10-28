@@ -22,6 +22,7 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task UpdateAsync(Expense entity, CancellationToken cancellationToken)
         {
+            entity.UpdateDate();
             _context.Entry(entity).State = EntityState.Modified;
         }
 

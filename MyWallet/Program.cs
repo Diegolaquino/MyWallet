@@ -27,8 +27,10 @@ try
     builder.Services.AddScoped<ICategoryService, CategoryService>();
     builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
     builder.Services.AddScoped<IExpenseService, ExpenseService>();
-    builder.Services.AddScoped<IExpenseService, ExpenseService>();
+    builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
     builder.Services.AddScoped<IIncomeService, IncomeService>();
+    builder.Services.AddScoped<IWalletRepository, WalletRepository>();
+    builder.Services.AddScoped<IWalletService, WalletService>();
     builder.Services.AddScoped<IUoW, UoW>();
 
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
