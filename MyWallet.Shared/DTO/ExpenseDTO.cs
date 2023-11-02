@@ -7,12 +7,14 @@
 
     public class ExpenseEntryDTO
     {
+        public DateTime ExpenseDate { get; set; }
+
         public Decimal Value { get; set; }
 
-        public DateTime? CreatedDate { get; set; }
+        public CategoryDTO? Category { get; set; }
 
-        public CategoryDTO Category { get; set; }  
-        
+        public Guid CategoryId { get; set; }
+
         public List<TagDTO>? Tags { get; set; }
 
         public string? Comments { get; set; }

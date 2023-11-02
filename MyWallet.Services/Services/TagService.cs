@@ -6,19 +6,24 @@ using MyWallet.Repositories.Contracts;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MyWallet.Services
+namespace MyWallet.Services.Services
 {
-    public class CategoryService : ICategoryService
+    public class TagService : ITagService
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly IMapper _mapper;
         private readonly IUoW _unitOfWork;
-        private readonly ILogger<CategoryService> _logger;
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IUoW unitOfWork, ILogger<CategoryService> logger)
+        private readonly ILogger<TagService> _logger;
+        public TagService(ITagRepository tagRepository, IMapper mapper, IUoW unitOfWork, ILogger<TagService> logger)
         {
-            _categoryRepository = categoryRepository;
+            _tagRepository = tagRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -27,9 +32,9 @@ namespace MyWallet.Services
         {
             try
             {
-                var categories = await _categoryRepository.GetAllAsync(ownerParameters, cancellationToken);
+                var tags = await _tagRepository.GetAllAsync(ownerParameters, cancellationToken);
 
-                var response = new SucessResponse<IEnumerable<CategoryDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Category>, List<CategoryDTO>>(categories));
+                var response = new SucessResponse<IEnumerable<TagDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Tag>, List<TagDTO>>(tags));
 
                 return response;
             }
@@ -40,21 +45,21 @@ namespace MyWallet.Services
             }
         }
 
-        public async Task<ResponseBase> Save(CategoryDTO categoryDTO, CancellationToken cancellationToken)
+        public async Task<ResponseBase> Save(TagDTO tagDTO, CancellationToken cancellationToken)
         {
             try
             {
-                var category = _mapper.Map<Category>(categoryDTO);
+                var tag = _mapper.Map<Tag>(tagDTO);
 
-                var obj = await _categoryRepository.AddAsync(category, cancellationToken);
+                var obj = await _tagRepository.AddAsync(tag, cancellationToken);
                 await _unitOfWork.CommitAsync();
 
-                return new SucessResponse<CategoryDTO>((int)HttpStatusCode.Created, _mapper.Map<CategoryDTO>(obj));
+                return new SucessResponse<TagDTO>((int)HttpStatusCode.Created, _mapper.Map<TagDTO>(obj));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return new FailureResponse((int)HttpStatusCode.InternalServerError, "An error occurred in the category registration flow", ex, ex.StackTrace ?? "");
+                return new FailureResponse((int)HttpStatusCode.InternalServerError, "An error occurred in the tag registration flow", ex, ex.StackTrace ?? "");
             }
         }
 
@@ -62,7 +67,7 @@ namespace MyWallet.Services
         {
             try
             {
-                await _categoryRepository.DeleteAsync(id);
+                await _tagRepository.DeleteAsync(id);
                 await _unitOfWork.CommitAsync();
             }
             catch (Exception ex)
@@ -72,11 +77,11 @@ namespace MyWallet.Services
             }
         }
 
-        public async Task UpdateAsync(CategoryDTO category, CancellationToken cancellationToken)
+        public async Task UpdateAsync(TagDTO tag, CancellationToken cancellationToken)
         {
             try
             {
-                await _categoryRepository.UpdateAsync(_mapper.Map<CategoryDTO, Category>(category), cancellationToken);
+                await _tagRepository.UpdateAsync(_mapper.Map<TagDTO, Tag>(tag), cancellationToken);
 
                 await _unitOfWork.CommitAsync();
             }
@@ -89,12 +94,12 @@ namespace MyWallet.Services
 
         public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
         {
-            var categoy = await _categoryRepository.GetByIdAsync(id, cancellationToken);
+            var categoy = await _tagRepository.GetByIdAsync(id, cancellationToken);
 
             if (categoy is null)
                 return new FailureResponse((int)HttpStatusCode.NotFound, "");
 
-            return new SucessResponse<CategoryDTO>((int)HttpStatusCode.OK, _mapper.Map<CategoryDTO>(categoy));
+            return new SucessResponse<TagDTO>((int)HttpStatusCode.OK, _mapper.Map<TagDTO>(categoy));
         }
     }
 }

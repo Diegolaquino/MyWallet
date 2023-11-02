@@ -45,7 +45,7 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task<IEnumerable<Expense>> GetAllAsync(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken)
         {
-            var expenses = await _context.Expenses.OrderBy(on => on.CreatedDate)
+            var expenses = await _context.Expenses.Include(x => x.Category).OrderBy(on => on.CreatedDate)
                     .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
                     .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync(cancellationToken);
 
@@ -54,8 +54,8 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task<IEnumerable<Expense>> GetByDateInterval(DateTime start, DateTime end, CancellationToken cancellationToken)
         {
-            var expenses = await _context.Expenses.OrderBy(on => on.CreatedDate)
-                   .Where(e => e.CreatedDate >= start && e.CreatedDate <= end).AsNoTracking().ToListAsync(cancellationToken);
+            var expenses = await _context.Expenses
+                   .Where(e => e.ExpenseDate >= start && e.ExpenseDate <= end).Include(e => e.Category).AsNoTracking().ToListAsync(cancellationToken);
 
             return expenses;
         }
