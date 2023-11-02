@@ -23,6 +23,8 @@ namespace MyWallet.IoC.Config
                 cfg.CreateMap<ExpenseEntryDTO, Expense>()
                 .ReverseMap();
                 cfg.CreateMap<Expense, ExpenseDTO>();
+
+                cfg.CreateMap<ReminderDTO, Reminder>().ReverseMap();
             });
 
             IMapper mapper = config.CreateMapper();
