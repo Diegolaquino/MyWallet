@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Repositories", "My
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.Services", "MyWallet.Services\MyWallet.Services.csproj", "{F6CF8BBA-CA04-488B-936D-7E3500210A86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWallet.IoC", "MyWallet.IoC\MyWallet.IoC.csproj", "{D8ED1EC7-5FB2-404A-9797-7AD93034D857}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWallet.IoC", "MyWallet.IoC\MyWallet.IoC.csproj", "{D8ED1EC7-5FB2-404A-9797-7AD93034D857}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
