@@ -41,7 +41,7 @@ namespace MyWallet.API.Controllers
         [ProducesResponseType(typeof(SucessResponse<CategoryDTO>), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(FailureResponse), (int)HttpStatusCode.BadRequest)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CategoryEntryDTO requestCategory, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post([FromBody] CategoryDTO requestCategory, CancellationToken cancellationToken)
         {
             var category = await _categoryService.Save(requestCategory, cancellationToken);
 
@@ -50,7 +50,7 @@ namespace MyWallet.API.Controllers
 
         // PUT api/<CategoriesController>/5
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] CategoryEntryDTO value, CancellationToken cancellationToken)
+        public async Task<IActionResult> Put([FromBody] CategoryDTO value, CancellationToken cancellationToken)
         {
             await _categoryService.UpdateAsync(value, cancellationToken);
 

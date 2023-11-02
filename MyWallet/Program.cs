@@ -31,6 +31,8 @@ try
     builder.Services.AddScoped<IIncomeService, IncomeService>();
     builder.Services.AddScoped<IWalletRepository, WalletRepository>();
     builder.Services.AddScoped<IWalletService, WalletService>();
+    builder.Services.AddScoped<ITagService,TagService>();
+    builder.Services.AddScoped<ITagRepository, TagRepository>();
     builder.Services.AddScoped<IUoW, UoW>();
 
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
