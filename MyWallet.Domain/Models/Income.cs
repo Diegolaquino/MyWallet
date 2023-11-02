@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWallet.Domain.Models
 {
@@ -27,5 +28,9 @@ namespace MyWallet.Domain.Models
         public int Installments { get; set; } = 1;
 
         public virtual List<Tag> Tags { get; set; }
+
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(200)]
+        public string Comments { get; set; }
     }
 }
