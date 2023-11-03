@@ -96,5 +96,22 @@ namespace MyWallet.Services.Services
 
             return new SucessResponse<ReminderDTO>((int)HttpStatusCode.OK, _mapper.Map<ReminderDTO>(categoy));
         }
+
+        public async Task<ResponseBase> GetRemindersNoResolvedAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var reminders = await _reminderRepository.GetRemindersNoResolvedAsync(cancellationToken);
+
+                var response = new SucessResponse<IEnumerable<ReminderDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<Reminder>, List<ReminderDTO>>(reminders));
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return new FailureResponse((int)HttpStatusCode.InternalServerError, "InternalServerError", ex);
+            }
+        }
     }
 }

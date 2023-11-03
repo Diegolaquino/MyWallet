@@ -51,5 +51,13 @@ namespace MyWallet.Repositories.Repositories
             entity.UpdateDate();
             _context.Entry(entity).State = EntityState.Modified;
         }
+
+        public async Task<IEnumerable<Income>> GetByDateInterval(DateTime start, DateTime end, CancellationToken cancellationToken)
+        {
+            var incomes = await _context.Incomes
+                   .Where(e => e.IncomeDate.Date >= start.Date && e.IncomeDate.Date <= end.Date).Include(e => e.Category).AsNoTracking().ToListAsync(cancellationToken);
+
+            return incomes;
+        }
     }
 }

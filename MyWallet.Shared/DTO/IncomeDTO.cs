@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyWallet.Shared.DTO
+﻿namespace MyWallet.Shared.DTO
 {
     public class IncomeDTO : IncomeEntryDTO
     {
         public Guid Id { get; set; }
     }
+
     public class IncomeEntryDTO
     {
+        public DateTime IncomeDate { get; set; }
         public Decimal Value { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public CategoryDTO? Category { get; set; }
 
-        public CategoryDTO Category { get; set; }
+        public Guid CategoryId { get; set; }
 
-        public List<string>? Tags { get; set; }
+        public string Tags { get; set; }
 
         public string? Comments { get; set; }
 

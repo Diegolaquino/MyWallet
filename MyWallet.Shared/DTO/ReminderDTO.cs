@@ -18,6 +18,6 @@ namespace MyWallet.Shared.DTO
         public string Name { get; set; }
 
         [StringLength(200)]
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
+using MyWallet.Services.Services;
 using MyWallet.Shared.DTO;
 using System.Net;
 
@@ -64,6 +65,15 @@ namespace MyWallet.API.Controllers
             await _incomeService.DeleteAsync(id);
 
             return NoContent();
+        }
+
+        // GET api/<IncomesController>/5
+        [HttpGet("bydateinterval")]
+        public async Task<IActionResult> GetInterval([FromQuery] IncomeIntervalDTO incomeInterval, CancellationToken cancellationToken)
+        {
+            var response = await _incomeService.GetIncomesByInterval(incomeInterval, cancellationToken);
+
+            return StatusCode(response.StatusCode, response); ;
         }
     }
 }

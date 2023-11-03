@@ -8,12 +8,14 @@ namespace MyWallet.Domain.Models
     {
         public Income()
         {
-                
+             
         }
         public Income(Guid id) : base(id)
         {
 
         }
+
+        public DateTime IncomeDate { get; set; }
 
         [ForeignKey("CategoryId")]
         public Guid CategoryId { get; set; }
@@ -22,12 +24,11 @@ namespace MyWallet.Domain.Models
 
         [Column(TypeName = "decimal(18,4)")]
         public decimal Value { get; set; }
-
-        public string Name { get; set; }
-
         public int Installments { get; set; } = 1;
 
-        public virtual List<Tag> Tags { get; set; }
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(200)]
+        public string Tags { get; set; }
 
         [Column(TypeName = "VARCHAR")]
         [StringLength(200)]

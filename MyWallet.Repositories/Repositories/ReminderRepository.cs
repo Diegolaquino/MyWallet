@@ -23,7 +23,21 @@ namespace MyWallet.Repositories.Repositories
         public async Task UpdateAsync(Reminder entity, CancellationToken cancellationToken)
         {
             entity.UpdateDate();
-            _context.Entry(entity).State = EntityState.Modified;
+            var reminder = _context.Reminders.FirstOrDefault(x => x.Name == entity.Name);
+
+            if (reminder is not null)
+            {
+
+                reminder.Name = entity.Name;
+                reminder.Resolved = entity.Resolved;
+                reminder.Comments = entity.Comments ?? reminder.Comments;
+            }
+            else
+            {
+                return;
+            }
+
+            _context.Entry(reminder).State = EntityState.Modified;
         }
 
         public async Task DeleteAsync(Guid id)
@@ -48,6 +62,13 @@ namespace MyWallet.Repositories.Repositories
             var reminders = await _context.Reminders.OrderBy(on => on.Name)
                     .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
                     .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync(cancellationToken);
+
+            return reminders;
+        }
+
+        public async Task<List<Reminder>> GetRemindersNoResolvedAsync(CancellationToken cancellationToken)
+        {
+            var reminders = await _context.Reminders.Where(c => !c.Resolved).AsNoTracking().ToListAsync(cancellationToken);
 
             return reminders;
         }

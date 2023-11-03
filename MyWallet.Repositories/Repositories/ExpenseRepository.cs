@@ -55,7 +55,7 @@ namespace MyWallet.Repositories.Repositories
         public async Task<IEnumerable<Expense>> GetByDateInterval(DateTime start, DateTime end, CancellationToken cancellationToken)
         {
             var expenses = await _context.Expenses
-                   .Where(e => e.ExpenseDate >= start && e.ExpenseDate <= end).Include(e => e.Category).AsNoTracking().ToListAsync(cancellationToken);
+                   .Where(e => e.ExpenseDate.Date >= start.Date && e.ExpenseDate.Date <= end.Date).Include(e => e.Category).AsNoTracking().ToListAsync(cancellationToken);
 
             return expenses;
         }

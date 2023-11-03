@@ -16,13 +16,15 @@ namespace MyWallet.IoC.Config
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Category, CategoryDTO>();
-                cfg.CreateMap<Tag, TagDTO>();
-                cfg.CreateMap<TagDTO, Tag>();
                 cfg.CreateMap<CategoryDTO, Category>();
                 cfg.CreateMap<WalletDTO, Wallet>().ReverseMap();
                 cfg.CreateMap<ExpenseEntryDTO, Expense>()
                 .ReverseMap();
+                cfg.CreateMap<IncomeEntryDTO, Income>()
+                .ReverseMap();
                 cfg.CreateMap<Expense, ExpenseDTO>();
+
+                cfg.CreateMap<Income, IncomeDTO>();
 
                 cfg.CreateMap<ReminderDTO, Reminder>().ReverseMap();
             });

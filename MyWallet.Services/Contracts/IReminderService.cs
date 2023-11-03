@@ -1,4 +1,5 @@
-﻿using MyWallet.Shared.DTO;
+﻿using MyWallet.Services.Responses;
+using MyWallet.Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace MyWallet.Services.Contracts
 {
     public interface IReminderService : IBaseService<ReminderDTO>
     {
+        public Task<ResponseBase> GetRemindersNoResolvedAsync(CancellationToken cancellationToken);
     }
 }

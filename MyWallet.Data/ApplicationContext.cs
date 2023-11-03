@@ -17,8 +17,6 @@ namespace MyWallet.Data
 
         public DbSet<Income> Incomes { get; set; }
 
-        public DbSet<Tag> Tags { get; set; }
-
         public DbSet<Reminder> Reminders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

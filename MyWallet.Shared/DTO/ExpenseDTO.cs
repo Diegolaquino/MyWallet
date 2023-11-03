@@ -15,7 +15,7 @@
 
         public Guid CategoryId { get; set; }
 
-        public List<TagDTO>? Tags { get; set; }
+        public string Tags { get; set; }
 
         public string? Comments { get; set; }
 

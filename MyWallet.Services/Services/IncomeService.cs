@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Base;
 using MyWallet.Repositories.Contracts;
+using MyWallet.Repositories.Repositories;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
@@ -96,6 +97,16 @@ namespace MyWallet.Services.Services
                 _logger.LogError(ex, ex.Message);
                 throw;
             }
+        }
+
+        public async Task<ResponseBase> GetIncomesByInterval(IncomeIntervalDTO incomeInterval, CancellationToken cancellationToken)
+        {
+            var incomes = await _incomeRepository.GetByDateInterval(incomeInterval.Start, incomeInterval.End, cancellationToken);
+
+            if (incomes is null)
+                return new FailureResponse((int)HttpStatusCode.NoContent, "");
+
+            return new SucessResponse<IEnumerable<IncomeDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<IncomeDTO>>(incomes));
         }
     }
 }

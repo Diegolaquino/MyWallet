@@ -27,6 +27,17 @@ namespace MyWallet.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
+        // GET: api/<RemindersController>
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(IEnumerable<ReminderDTO>), (int)HttpStatusCode.NoContent)]
+        [HttpGet("noResolved")]
+        public async Task<IActionResult> GetRemindersArctives(CancellationToken cancellationToken)
+        {
+            var response = await _reminderService.GetRemindersNoResolvedAsync(cancellationToken);
+
+            return StatusCode(response.StatusCode, response);
+        }
+
         // GET api/<RemindersController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
@@ -45,6 +56,15 @@ namespace MyWallet.API.Controllers
             var reminder = await _reminderService.Save(requestReminder, cancellationToken);
 
             return StatusCode(reminder.StatusCode, reminder);
+        }
+
+        // PUT api/<RemindersController>/5
+        [HttpPatch]
+        public async Task<IActionResult> Patch([FromBody] ReminderDTO value, CancellationToken cancellationToken)
+        {
+            await _reminderService.UpdateAsync(value, cancellationToken);
+
+            return Ok();
         }
 
         // PUT api/<RemindersController>/5

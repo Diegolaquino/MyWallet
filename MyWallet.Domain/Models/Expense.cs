@@ -28,9 +28,11 @@ namespace MyWallet.Domain.Models
         [ForeignKey("CategoryId")]
         public Guid CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }  
+        public virtual Category Category { get; set; }
 
-        public virtual List<Tag> Tags { get; set; }
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(200)]
+        public string Tags { get; set; }
 
         public int? Installments { get; set; } = 1;
 
