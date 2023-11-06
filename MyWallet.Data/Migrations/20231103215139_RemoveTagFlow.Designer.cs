@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWallet.Data;
 
@@ -11,9 +12,11 @@ using MyWallet.Data;
 namespace MyWallet.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231103215139_RemoveTagFlow")]
+    partial class RemoveTagFlow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,10 +75,7 @@ namespace MyWallet.Data.Migrations
                     b.Property<DateTime>("ExpenseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Installment")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InstallmentsQuantity")
+                    b.Property<int?>("Installments")
                         .HasColumnType("int");
 
                     b.Property<bool>("Paid")
@@ -141,14 +141,9 @@ namespace MyWallet.Data.Migrations
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("WalletId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("WalletId");
 
                     b.ToTable("Incomes");
                 });
@@ -235,13 +230,7 @@ namespace MyWallet.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyWallet.Domain.Models.Wallet", "Wallet")
-                        .WithMany()
-                        .HasForeignKey("WalletId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Models.Wallet", b =>
