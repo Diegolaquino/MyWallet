@@ -70,12 +70,20 @@ namespace MyWallet.Services.Services
         {
             try
             {
-                var income = _mapper.Map<Income>(dto);
+                var objList = new List<Income>();
+                var installments = dto.InstallmentsQuantity ?? 1;
 
-                var obj = await _incomeRepository.AddAsync(income, cancellationToken);
+                for (int i = 0; i < installments; i++)
+                {
+                    var clonedIncome = dto.ShallowCopy();
+                    clonedIncome.AddMonth(i);
+                    clonedIncome.AddInstallment(i + 1);
+                    objList.Add(await _incomeRepository.AddAsync(_mapper.Map<Income>(clonedIncome), cancellationToken));
+                }
+
                 await _unitOfWork.CommitAsync();
 
-                return new SucessResponse<IncomeDTO>((int)HttpStatusCode.Created, _mapper.Map<IncomeDTO>(obj));
+                return new SucessResponse<IEnumerable<IncomeDTO>>((int)HttpStatusCode.Created, Enumerable.Empty<IncomeDTO>());
             }
             catch (Exception ex)
             {

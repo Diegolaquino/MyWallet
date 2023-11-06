@@ -6,6 +6,7 @@ using MyWallet.Repositories.Contracts;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
+using System.ComponentModel;
 using System.Net;
 
 namespace MyWallet.Services.Services
@@ -44,12 +45,20 @@ namespace MyWallet.Services.Services
         {
             try
             {
-                var expense = _mapper.Map<Expense>(expenseDTO);
+                var objList = new List<Expense>();
+                var installments = expenseDTO.InstallmentsQuantity ?? 1;
 
-                var obj = await _expenseRepository.AddAsync(expense, cancellationToken);
+                for (int i = 0; i < installments; i++)
+                {
+                    var clonedExpense = expenseDTO.ShallowCopy();
+                    clonedExpense.AddMonth(i);
+                    clonedExpense.AddInstallment(i + 1);
+                    objList.Add(await _expenseRepository.AddAsync(_mapper.Map<Expense>(clonedExpense), cancellationToken));
+                }
+
                 await _unitOfWork.CommitAsync();
 
-                return new SucessResponse<ExpenseDTO>((int)HttpStatusCode.Created, _mapper.Map<ExpenseDTO>(obj));
+                return new SucessResponse<IEnumerable<ExpenseDTO>>((int)HttpStatusCode.Created, Enumerable.Empty<ExpenseDTO>());
             }
             catch (Exception ex)
             {
