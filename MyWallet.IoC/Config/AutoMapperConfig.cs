@@ -22,6 +22,7 @@ namespace MyWallet.IoC.Config
                 .ReverseMap();
                 cfg.CreateMap<IncomeEntryDTO, Income>()
                 .ReverseMap();
+
                 cfg.CreateMap<Expense, ExpenseDTO>();
 
                 cfg.CreateMap<Income, IncomeDTO>();
