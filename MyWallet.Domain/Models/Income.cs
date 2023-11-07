@@ -24,7 +24,9 @@ namespace MyWallet.Domain.Models
 
         [Column(TypeName = "decimal(18,4)")]
         public decimal Value { get; set; }
-        public int Installments { get; set; } = 1;
+        public int InstallmentsQuantity { get; set; } = 1;
+
+        public int Installment { get; set; } = 1;
 
         [Column(TypeName = "VARCHAR")]
         [StringLength(200)]
@@ -33,5 +35,15 @@ namespace MyWallet.Domain.Models
         [Column(TypeName = "VARCHAR")]
         [StringLength(200)]
         public string Comments { get; set; }
+
+        public Wallet Wallet { get; set; }
+
+        public Guid? WalletId { get; set; }
+
+        [NotMapped]
+        public string? WalletName { get; set; }
+
+        [NotMapped]
+        public string? CategoryName { get; set; }
     }
 }

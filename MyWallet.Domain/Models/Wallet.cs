@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using MyWallet.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWallet.Domain.Models
 {
@@ -12,6 +13,8 @@ namespace MyWallet.Domain.Models
 
         public string Name { get; set; }
 
-        public virtual IList<Expense>? Expenses { get; set; }
+        public IList<Expense>? Expenses { get; set; }
+
+       // public EWalletType? WalletType { get; set; }
     }
 }

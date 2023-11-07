@@ -7,14 +7,15 @@ using MyWallet.Repositories.Repositories;
 using MyWallet.Services;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Services;
+using System.Text.Json.Serialization;
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
-
     builder.Services.AddControllers();
+
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
@@ -34,6 +35,7 @@ try
     builder.Services.AddScoped<IReminderService, ReminderService>();
     builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
     builder.Services.AddScoped<IUoW, UoW>();
+
 
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddSingleton(AutoMapperConfig.Configure());

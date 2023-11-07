@@ -25,21 +25,30 @@ namespace MyWallet.Domain.Models
 
         public Wallet? Wallet { get; set; }
 
+        [NotMapped]
+        public string WalletName { get; set; }
+
+
         [ForeignKey("CategoryId")]
         public Guid CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
+
+        [NotMapped]
+        public string CategoryName { get; set; }
 
         [Column(TypeName = "VARCHAR")]
         [StringLength(200)]
         public string Tags { get; set; }
 
-        public int? Installments { get; set; } = 1;
+        public int? InstallmentsQuantity { get; set; } = 1;
 
         public bool Paid { get; set; }
 
         [Column(TypeName = "VARCHAR")]
         [StringLength(200)]
         public string Comments { get; set; }
+
+        public int Installment { get; set; } = 1;
     }
 }
