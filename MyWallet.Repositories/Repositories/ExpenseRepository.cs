@@ -45,7 +45,7 @@ namespace MyWallet.Repositories.Repositories
 
         public async Task<IEnumerable<Expense>> GetAllAsync(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken)
         {
-            var expenses = await _context.Expenses.Include(x => x.Category).OrderBy(on => on.CreatedDate)
+            var expenses = await _context.Expenses.Include(x => x.Category).Include(e => e.Wallet).OrderBy(on => on.CreatedDate)
                     .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
                     .Take(ownerParameters.PageSize).AsNoTracking().ToListAsync(cancellationToken);
 
@@ -55,7 +55,22 @@ namespace MyWallet.Repositories.Repositories
         public async Task<IEnumerable<Expense>> GetByDateInterval(DateTime start, DateTime end, CancellationToken cancellationToken)
         {
             var expenses = await _context.Expenses
-                   .Where(e => e.ExpenseDate.Date >= start.Date && e.ExpenseDate.Date <= end.Date).Include(e => e.Category).AsNoTracking().ToListAsync(cancellationToken);
+                   .Where(e => e.ExpenseDate.Date >= start.Date && e.ExpenseDate.Date <= end.Date).Include(e => e.Category).Select(e => new Expense
+                   {
+                       ExpenseDate = e.ExpenseDate,
+                       Value = e.Value,
+                       WalletId = e.WalletId,
+                       Wallet = e.Wallet,
+                       WalletName = e.Wallet == null ? null : e.Wallet.Name,
+                       CategoryId = e.CategoryId,
+                       Category = e.Category,
+                       CategoryName = e.Category == null ? null : e.Category.Name,
+                       Tags = e.Tags,
+                       InstallmentsQuantity = e.InstallmentsQuantity,
+                       Paid = e.Paid,
+                       Comments = e.Comments,
+                       Installment = e.Installment
+                   }).AsNoTracking().ToListAsync(cancellationToken);
 
             return expenses;
         }

@@ -1,23 +1,12 @@
-﻿using System.Runtime;
-using System;
-using System.Text.Json.Serialization;
-using System.Xml.Linq;
+﻿using System.Text.Json.Serialization;
 
 namespace MyWallet.Shared.DTO
 {
-    public class ExpenseDTO : ExpenseEntryDTO
-    {
-        [JsonPropertyName("expenseId")]
-        public Guid Id { get; set; }
-    }
-
-    public class ExpenseEntryDTO
+    public abstract class ExpenseBaseDto
     {
         public DateTime ExpenseDate { get; set; }
 
         public Decimal Value { get; set; }
-
-        public CategoryDTO? Category { get; set; }
 
         public Guid CategoryId { get; set; }
 
@@ -26,13 +15,27 @@ namespace MyWallet.Shared.DTO
 
         public string? Comments { get; set; }
 
-        public WalletDTO? Wallet { get; set; }
-
         public Guid? WalletId { get; set; }
 
         public int? InstallmentsQuantity { get; set; }
 
         public int Installment { get; set; } = 0;
+    }
+
+    public class ExpenseDTO : ExpenseBaseDto
+    {
+        [JsonPropertyName("expenseId")]
+        public Guid Id { get; set; }
+
+        public string WalletName { get; set; }
+
+        public string CategoryName { get; set; }
+    }
+
+    public class ExpenseEntryDTO : ExpenseBaseDto
+    {
+        public CategoryDTO? Category { get; set; }
+        public WalletDTO? Wallet { get; set; }
 
         public ExpenseEntryDTO ShallowCopy()
         {
@@ -55,5 +58,5 @@ namespace MyWallet.Shared.DTO
         {
             this.Installment = i;
         }
-    } 
+    }
 }

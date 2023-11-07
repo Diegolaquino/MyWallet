@@ -2,18 +2,10 @@
 
 namespace MyWallet.Shared.DTO
 {
-    public class IncomeDTO : IncomeEntryDTO
-    {
-        [JsonPropertyName("incomeId")]
-        public Guid Id { get; set; }
-    }
-
-    public class IncomeEntryDTO
+    public abstract class IncomeBaseDto
     {
         public DateTime IncomeDate { get; set; }
         public Decimal Value { get; set; }
-
-        public CategoryDTO? Category { get; set; }
 
         public Guid CategoryId { get; set; }
 
@@ -21,14 +13,26 @@ namespace MyWallet.Shared.DTO
 
         public string? Comments { get; set; }
 
-        public WalletDTO? Wallet { get; set; }
-
         public Guid? WalletId { get; set; }
 
         public int? InstallmentsQuantity { get; set; }
 
         public int Installment { get; set; } = 0;
+    }
+    public class IncomeDTO : IncomeBaseDto
+    {
+        [JsonPropertyName("incomeId")]
+        public Guid Id { get; set; }
 
+        public string WalletName { get; set; }
+
+        public string CategoryName { get; set; }
+    }
+
+    public class IncomeEntryDTO : IncomeBaseDto
+    {
+        public CategoryDTO? Category { get; set; }
+        public WalletDTO? Wallet { get; set; }
         public IncomeEntryDTO ShallowCopy()
         {
             return (IncomeEntryDTO)this.MemberwiseClone();
