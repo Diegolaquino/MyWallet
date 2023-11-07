@@ -18,7 +18,7 @@ namespace MyWallet.API.Controllers
 
         // GET: api/<WalletsController>
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(IEnumerable<ExpenseDTO>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(IEnumerable<WalletDTO>), (int)HttpStatusCode.NoContent)]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] OwnerParametersDTO filters, CancellationToken cancellationToken)
         {
@@ -37,7 +37,7 @@ namespace MyWallet.API.Controllers
         }
 
         // POST api/<WalletsController>
-        [ProducesResponseType(typeof(SucessResponse<ExpenseDTO>), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(SucessResponse<WalletDTO>), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(FailureResponse), (int)HttpStatusCode.BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] WalletDTO requestWallet, CancellationToken cancellationToken)
