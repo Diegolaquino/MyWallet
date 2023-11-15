@@ -15,6 +15,8 @@ namespace MyWallet.Domain.Models
 
         public IList<Expense>? Expenses { get; set; }
 
-       // public EWalletType? WalletType { get; set; }
+        public int? ShoppingDay { get; set; }
+
+        public EWalletType? WalletType { get; set; }
     }
 }
