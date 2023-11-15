@@ -7,7 +7,6 @@ using MyWallet.Repositories.Repositories;
 using MyWallet.Services;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Services;
-using System.Text.Json.Serialization;
 
 try
 {
