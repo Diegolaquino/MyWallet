@@ -20,6 +20,8 @@ namespace MyWallet.Shared.DTO
         public int? InstallmentsQuantity { get; set; }
 
         public int Installment { get; set; } = 0;
+
+        public bool IsFixed { get; set; } = false;
     }
 
     public class ExpenseDTO : ExpenseBaseDto

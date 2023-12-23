@@ -69,7 +69,8 @@ namespace MyWallet.Repositories.Repositories
                        InstallmentsQuantity = e.InstallmentsQuantity,
                        Paid = e.Paid,
                        Comments = e.Comments,
-                       Installment = e.Installment
+                       Installment = e.Installment,
+                       IsFixed = e.IsFixed
                    }).AsNoTracking().ToListAsync(cancellationToken);
 
             return expenses;

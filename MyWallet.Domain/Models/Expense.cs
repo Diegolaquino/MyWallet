@@ -50,5 +50,7 @@ namespace MyWallet.Domain.Models
         public string Comments { get; set; }
 
         public int Installment { get; set; } = 1;
+
+        public bool IsFixed { get; set; } = false;
     }
 }
