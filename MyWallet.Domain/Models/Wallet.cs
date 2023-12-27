@@ -18,5 +18,7 @@ namespace MyWallet.Domain.Models
         public int? ShoppingDay { get; set; }
 
         public EWalletType? WalletType { get; set; }
+
+      //  public decimal? Balance { get; set; }
     }
 }

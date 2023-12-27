@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyWallet.Shared.DTO
 {
-    public class ExpenseIntervalDTO
+    public class IntervalDTO
     {
         public DateTime Start {  get; set; }
 

@@ -106,7 +106,7 @@ namespace MyWallet.Services.Services
             return new SucessResponse<ExpenseDTO>((int)HttpStatusCode.OK, _mapper.Map<ExpenseDTO>(expense));
         }
 
-        public async Task<ResponseBase> GetExpensesByInterval(ExpenseIntervalDTO expenseInterval, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetExpensesByInterval(IntervalDTO expenseInterval, CancellationToken cancellationToken)
         {
             var expenses = await _expenseRepository.GetByDateInterval(expenseInterval.Start, expenseInterval.End, cancellationToken);
 

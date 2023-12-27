@@ -25,4 +25,5 @@ namespace MyWallet.Shared.DTO
         public string CPF { get; set; }
     }
 
+    public record LoginDto(string email, string password);
 }

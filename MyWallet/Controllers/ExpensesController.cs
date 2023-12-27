@@ -67,7 +67,7 @@ namespace MyWallet.API.Controllers
 
         // GET api/<ExpensesController>/5
         [HttpGet("bydateinterval")]
-        public async Task<IActionResult> GetInterval([FromQuery]ExpenseIntervalDTO expenseInterval, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetInterval([FromQuery]IntervalDTO expenseInterval, CancellationToken cancellationToken)
         {
             var response = await _expenseService.GetExpensesByInterval(expenseInterval, cancellationToken);
 

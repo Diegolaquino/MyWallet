@@ -17,7 +17,7 @@ namespace MyWallet.API.Controllers
             _healthService = healthService;
         }
 
-        // GET: api/<ExpensesController>
+        // GET: api/<HealthController>
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(IEnumerable<HealthDTO>), (int)HttpStatusCode.NoContent)]
         [HttpGet]
@@ -28,7 +28,7 @@ namespace MyWallet.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        // GET api/<ExpensesController>/5
+        // GET api/<HealthController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
@@ -37,27 +37,27 @@ namespace MyWallet.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        // POST api/<ExpensesController>
+        // POST api/<HealthController>
         [ProducesResponseType(typeof(SucessResponse<HealthDTO>), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(FailureResponse), (int)HttpStatusCode.BadRequest)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ExpenseEntryDTO requestExpense, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post([FromBody] HealthDTO requestExpense, CancellationToken cancellationToken)
         {
-            var expense = await _healthService.Save(requestExpense, cancellationToken);
+            var expense = await _healthService.SaveAsync(requestExpense, cancellationToken);
 
             return StatusCode(expense.StatusCode, expense);
         }
 
-        // PUT api/<ExpensesController>/5
+        // PUT api/<HealthController>/5
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] ExpenseEntryDTO value, CancellationToken cancellationToken)
+        public async Task<IActionResult> Put([FromBody] HealthDTO value, CancellationToken cancellationToken)
         {
             await _healthService.UpdateAsync(value, cancellationToken);
 
             return Ok();
         }
 
-        // DELETE api/<ExpensesController>/5
+        // DELETE api/<HealthController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -66,11 +66,11 @@ namespace MyWallet.API.Controllers
             return NoContent();
         }
 
-        // GET api/<ExpensesController>/5
+        // GET api/<HealthController>/5
         [HttpGet("bydateinterval")]
-        public async Task<IActionResult> GetInterval([FromQuery] ExpenseIntervalDTO expenseInterval, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetInterval([FromQuery] IntervalDTO expenseInterval, CancellationToken cancellationToken)
         {
-            var response = await _healthService.GetExpensesByInterval(expenseInterval, cancellationToken);
+            var response = await _healthService.GetHealthByIntervalAsync(expenseInterval, cancellationToken);
 
             return StatusCode(response.StatusCode, response);
         }

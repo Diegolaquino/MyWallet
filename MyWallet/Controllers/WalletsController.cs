@@ -64,5 +64,14 @@ namespace MyWallet.API.Controllers
 
             return NoContent();
         }
+
+        //// GET api/<WalletsController>/5
+        //[HttpGet("WalletsByMonthAndYear")]
+        //public async Task<IActionResult> GetCurrentWallets([FromQuery]int month, [FromQuery]int year, CancellationToken cancellationToken)
+        //{
+        //    var response = await _walletService.GetWalletsAsync(id, cancellationToken);
+
+        //    return StatusCode(response.StatusCode, response);
+        //}
     }
 }

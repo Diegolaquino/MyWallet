@@ -5,6 +5,6 @@ namespace MyWallet.Services.Contracts
 {
     public interface IExpenseService : IBaseService<ExpenseEntryDTO>
     {
-        Task<ResponseBase> GetExpensesByInterval(ExpenseIntervalDTO expenseInterval, CancellationToken cancellationToken);
+        Task<ResponseBase> GetExpensesByInterval(IntervalDTO expenseInterval, CancellationToken cancellationToken);
     }
 }

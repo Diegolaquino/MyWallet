@@ -10,10 +10,10 @@ namespace MyWallet.Domain.Models
 
         public int Diastolic { get; set; }
 
-        [Column(TypeName = "decimal(18,3)")]
+        [Column(TypeName = "decimal(10,3)")]
         public decimal Weight { get; set; }
 
-        public ESleepQuality EleepQuality { get; set; }
+        public ESleepQuality SleepQuality { get; set; }
 
         public bool IsTired { get; set; }
 
