@@ -32,7 +32,7 @@ namespace MyWallet.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
-            var response = await _healthService.GetEntity(id, cancellationToken);
+            var response = await _healthService.GetEntityAsync(id, cancellationToken);
 
             return StatusCode(response.StatusCode, response);
         }

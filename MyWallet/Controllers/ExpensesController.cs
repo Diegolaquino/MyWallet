@@ -31,7 +31,7 @@ namespace MyWallet.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
-            var response = await _expenseService.GetEntity(id, cancellationToken);
+            var response = await _expenseService.GetEntityAsync(id, cancellationToken);
 
             return StatusCode(response.StatusCode, response);
         }
@@ -42,7 +42,7 @@ namespace MyWallet.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ExpenseEntryDTO requestExpense, CancellationToken cancellationToken)
         {
-            var expense = await _expenseService.Save(requestExpense, cancellationToken);
+            var expense = await _expenseService.SaveAsync(requestExpense, cancellationToken);
 
             return StatusCode(expense.StatusCode, expense);
         }

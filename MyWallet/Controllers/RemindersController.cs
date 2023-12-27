@@ -42,7 +42,7 @@ namespace MyWallet.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
         {
-            var response = await _reminderService.GetEntity(id, cancellationToken);
+            var response = await _reminderService.GetEntityAsync(id, cancellationToken);
 
             return StatusCode(response.StatusCode, response);
         }
@@ -53,7 +53,7 @@ namespace MyWallet.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ReminderDTO requestReminder, CancellationToken cancellationToken)
         {
-            var reminder = await _reminderService.Save(requestReminder, cancellationToken);
+            var reminder = await _reminderService.SaveAsync(requestReminder, cancellationToken);
 
             return StatusCode(reminder.StatusCode, reminder);
         }
