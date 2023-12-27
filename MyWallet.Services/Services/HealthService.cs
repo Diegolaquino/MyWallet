@@ -16,12 +16,12 @@ namespace MyWallet.Services.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseBase> Save(HealthDTO dto, CancellationToken cancellationToken)
+        public async Task<ResponseBase> SaveAsync(HealthDTO dto, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

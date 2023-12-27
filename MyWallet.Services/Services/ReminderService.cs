@@ -40,7 +40,7 @@ namespace MyWallet.Services.Services
             }
         }
 
-        public async Task<ResponseBase> Save(ReminderDTO reminderDTO, CancellationToken cancellationToken)
+        public async Task<ResponseBase> SaveAsync(ReminderDTO reminderDTO, CancellationToken cancellationToken)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace MyWallet.Services.Services
             }
         }
 
-        public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken)
         {
             var categoy = await _reminderRepository.GetByIdAsync(id, cancellationToken);
 

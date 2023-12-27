@@ -12,9 +12,9 @@ namespace MyWallet.Services.Contracts
     {
         Task<ResponseBase> GetAll(OwnerParametersDTO ownerParameters, CancellationToken cancellationToken);
 
-        Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken);
+        Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken);
 
-        Task<ResponseBase> Save(TEntityDTO dto, CancellationToken cancellationToken);
+        Task<ResponseBase> SaveAsync(TEntityDTO dto, CancellationToken cancellationToken);
 
         Task UpdateAsync(TEntityDTO entity, CancellationToken cancellationToken);
 

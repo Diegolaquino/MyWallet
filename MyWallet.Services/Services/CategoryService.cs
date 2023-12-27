@@ -40,7 +40,7 @@ namespace MyWallet.Services
             }
         }
 
-        public async Task<ResponseBase> Save(CategoryDTO categoryDTO, CancellationToken cancellationToken)
+        public async Task<ResponseBase> SaveAsync(CategoryDTO categoryDTO, CancellationToken cancellationToken)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace MyWallet.Services
             }
         }
 
-        public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken)
         {
             var categoy = await _categoryRepository.GetByIdAsync(id, cancellationToken);
 

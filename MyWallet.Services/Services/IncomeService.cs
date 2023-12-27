@@ -56,7 +56,7 @@ namespace MyWallet.Services.Services
             }
         }
 
-        public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken)
         {
             var income = await _incomeRepository.GetByIdAsync(id, cancellationToken);
 
@@ -66,7 +66,7 @@ namespace MyWallet.Services.Services
             return new SucessResponse<IncomeDTO>((int)HttpStatusCode.OK, _mapper.Map<IncomeDTO>(income));
         }
 
-        public async Task<ResponseBase> Save(IncomeEntryDTO dto, CancellationToken cancellationToken)
+        public async Task<ResponseBase> SaveAsync(IncomeEntryDTO dto, CancellationToken cancellationToken)
         {
             try
             {

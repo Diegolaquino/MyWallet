@@ -57,7 +57,7 @@ namespace MyWallet.Services.Services
             }
         }
 
-        public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken)
         {
             var wallet = await _walletRepository.GetByIdAsync(id, cancellationToken);
 
@@ -67,7 +67,7 @@ namespace MyWallet.Services.Services
             return new SucessResponse<WalletDTO>((int)HttpStatusCode.OK, _mapper.Map<WalletDTO>(wallet));
         }
 
-        public async Task<ResponseBase> Save(WalletDTO dto, CancellationToken cancellationToken)
+        public async Task<ResponseBase> SaveAsync(WalletDTO dto, CancellationToken cancellationToken)
         {
             try
             {

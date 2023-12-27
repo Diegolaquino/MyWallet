@@ -41,7 +41,7 @@ namespace MyWallet.Services.Services
             }
         }
 
-        public async Task<ResponseBase> Save(ExpenseEntryDTO expenseDTO, CancellationToken cancellationToken)
+        public async Task<ResponseBase> SaveAsync(ExpenseEntryDTO expenseDTO, CancellationToken cancellationToken)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace MyWallet.Services.Services
             }
         }
 
-        public async Task<ResponseBase> GetEntity(Guid id, CancellationToken cancellationToken)
+        public async Task<ResponseBase> GetEntityAsync(Guid id, CancellationToken cancellationToken)
         {
             var expense = await _expenseRepository.GetByIdAsync(id, cancellationToken);
 
