@@ -19,6 +19,10 @@ namespace MyWallet.Data
 
         public DbSet<Reminder> Reminders { get; set; }
 
+        public DbSet<Health> Healths { get; set; }
+
+        public DbSet<Exercise> Exercises { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Expense>()
@@ -28,6 +32,10 @@ namespace MyWallet.Data
             modelBuilder.Entity<Income>()
             .Property(b => b.Value)
                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Health>()
+            .Property(b => b.Weight)
+               .HasColumnType("decimal(10,3)");
         }
     }
 }

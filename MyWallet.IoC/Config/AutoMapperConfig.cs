@@ -30,7 +30,11 @@ namespace MyWallet.IoC.Config
                 cfg.CreateMap<ReminderDTO, Reminder>().ReverseMap();
 
                 cfg.CreateMap<Health, HealthDTO>().ReverseMap();
-            });
+
+                cfg.CreateMap<ExerciseDTO, Exercise>()
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src =>
+                    src.CreatedDate ?? DateTime.Now));
+                    });
 
             IMapper mapper = config.CreateMapper();
 

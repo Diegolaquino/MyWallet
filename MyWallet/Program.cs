@@ -45,9 +45,12 @@ try
         };
     });
 
-
+    builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+    builder.Services.AddScoped<IExerciseService, ExerciseService>();
     builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();
+    builder.Services.AddScoped<IHealthRepository, HealthRepository>();
+    builder.Services.AddScoped<IHealthService, HealthService>();
     builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
     builder.Services.AddScoped<IExpenseService, ExpenseService>();
     builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();

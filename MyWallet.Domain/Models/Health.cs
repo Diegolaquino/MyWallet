@@ -6,6 +6,12 @@ namespace MyWallet.Domain.Models
     [Table("HealthData")]
     public class Health : BaseEntity
     {
+        public Health(Guid Id) : base(Id) { }
+
+        public Health()
+        {
+                
+        }
         public int Systolic {  get; set; }
 
         public int Diastolic { get; set; }

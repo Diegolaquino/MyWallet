@@ -6,20 +6,19 @@ namespace MyWallet.Domain.Models
     [Table("Exercises")]
     public class Exercise : BaseEntity
     {
+        public DateTime ExerciseDate { get; set; }
         public double? Distance { get; set; }   
         public TimeSpan Duration { get; set; } 
         public EIntensity Intensity { get; set; }  
         public EExerciseType ExerciseType { get; set; }
         public int? Repetitions { get; set; }  
         public string Tags { get; set; }
-        public Exercise(double distance, TimeSpan duration, EIntensity intensity, EExerciseType exerciseType, int repetitions, string tags)
+        
+        public Exercise(Guid id): base(id) { }
+
+        public Exercise()
         {
-            Distance = distance;
-            Duration = duration;
-            Intensity = intensity;
-            ExerciseType = exerciseType;
-            Repetitions = repetitions;
-            Tags = tags;
+                
         }
     }
 

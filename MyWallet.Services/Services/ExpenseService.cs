@@ -51,6 +51,7 @@ namespace MyWallet.Services.Services
                 for (int i = 0; i < installments; i++)
                 {
                     var clonedExpense = expenseDTO.ShallowCopy();
+                    clonedExpense.Value = (expenseDTO.Value / installments);
                     clonedExpense.AddMonth(i);
                     clonedExpense.AddInstallment(i + 1);
                     objList.Add(await _expenseRepository.AddAsync(_mapper.Map<Expense>(clonedExpense), cancellationToken));
