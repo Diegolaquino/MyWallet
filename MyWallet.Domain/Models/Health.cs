@@ -12,6 +12,7 @@ namespace MyWallet.Domain.Models
         {
                 
         }
+        public DateTime HealthDate { get; set; }
         public int Systolic {  get; set; }
 
         public int Diastolic { get; set; }

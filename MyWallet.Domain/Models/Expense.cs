@@ -52,5 +52,23 @@ namespace MyWallet.Domain.Models
         public int Installment { get; set; } = 1;
 
         public bool IsFixed { get; set; } = false;
+
+        public EType Type { get; set; }
+    }
+
+    public enum EType
+    {
+        Expense = 1,
+        Income = 2
+    }
+
+    public class ExpenseAndCategory
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public Guid CategoryId { get; set; }
+        public decimal Value { get; set; }
+        public DateTime ExpenseDate { get; set; }
+        public EType Type { get; set; }
     }
 }

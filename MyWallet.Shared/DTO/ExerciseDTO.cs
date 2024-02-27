@@ -6,9 +6,8 @@ namespace MyWallet.Shared.DTO
     public class ExerciseDTO
     {
         public Guid? Id { get; set; }
-
         public DateTime ExerciseDate { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        //public DateTime? CreatedDate { get; set; }
         public double? Distance { get; set; }
         public TimeSpan Duration { get; set; }
         public EIntensity Intensity { get; set; }

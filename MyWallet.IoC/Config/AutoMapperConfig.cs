@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using MyWallet.Domain.Models;
 using MyWallet.Shared.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyWallet.IoC.Config
 {
@@ -31,10 +26,8 @@ namespace MyWallet.IoC.Config
 
                 cfg.CreateMap<Health, HealthDTO>().ReverseMap();
 
-                cfg.CreateMap<ExerciseDTO, Exercise>()
-                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src =>
-                    src.CreatedDate ?? DateTime.Now));
-                    });
+                cfg.CreateMap<Exercise, ExerciseDTO> ().ReverseMap();
+            });
 
             IMapper mapper = config.CreateMapper();
 

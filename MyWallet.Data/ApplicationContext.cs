@@ -23,8 +23,12 @@ namespace MyWallet.Data
 
         public DbSet<Exercise> Exercises { get; set; }
 
+        public DbSet<ExpenseAndCategory> ExpenseAndCategories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ExpenseAndCategory>().ToView("V_EXPENSES_WITH_CATEGORY");
+
             modelBuilder.Entity<Expense>()
             .Property(b => b.Value)
                .HasColumnType("decimal(18,2)");

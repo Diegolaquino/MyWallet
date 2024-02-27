@@ -9,5 +9,6 @@
         public int SleepQuality { get; set; }
         public bool IsTired { get; set; }
         public int StomachSize { get; set; }
+        public DateTime HealthDate { get; set; }
     }
 }

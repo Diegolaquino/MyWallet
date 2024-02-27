@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWallet.Data;
 
@@ -11,9 +12,11 @@ using MyWallet.Data;
 namespace MyWallet.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231124235310_IsFixed")]
+    partial class IsFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,48 +50,6 @@ namespace MyWallet.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("MyWallet.Domain.Models.Exercise", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double?>("Distance")
-                        .HasColumnType("float");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("ExerciseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ExerciseType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Intensity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Repetitions")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Models.Expense", b =>
@@ -147,44 +108,6 @@ namespace MyWallet.Data.Migrations
                     b.HasIndex("WalletId");
 
                     b.ToTable("Expenses");
-                });
-
-            modelBuilder.Entity("MyWallet.Domain.Models.Health", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Diastolic")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsTired")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SleepQuality")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StomachSize")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Systolic")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(10,3)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HealthData");
                 });
 
             modelBuilder.Entity("MyWallet.Domain.Models.Income", b =>
