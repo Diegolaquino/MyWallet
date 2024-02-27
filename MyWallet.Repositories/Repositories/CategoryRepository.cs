@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyWallet.Data;
 using MyWallet.Domain.Models;
 using MyWallet.Repositories.Contracts;
