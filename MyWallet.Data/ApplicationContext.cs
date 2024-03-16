@@ -15,8 +15,6 @@ namespace MyWallet.Data
 
         public DbSet<Wallet> Wallets { get; set; }
 
-        public DbSet<Income> Incomes { get; set; }
-
         public DbSet<Reminder> Reminders { get; set; }
 
         public DbSet<Health> Healths { get; set; }
@@ -30,10 +28,6 @@ namespace MyWallet.Data
             modelBuilder.Entity<ExpenseAndCategory>().ToView("V_EXPENSES_WITH_CATEGORY");
 
             modelBuilder.Entity<Expense>()
-            .Property(b => b.Value)
-               .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<Income>()
             .Property(b => b.Value)
                .HasColumnType("decimal(18,2)");
 
