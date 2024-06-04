@@ -14,5 +14,6 @@ namespace MyWallet.Shared.DTO
         public EExerciseType ExerciseType { get; set; }
         public int? Repetitions { get; set; }
         public string? Tags { get; set; }
+        public int AVGHeartRate { get; set; }
     }
 }

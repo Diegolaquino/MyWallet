@@ -24,6 +24,10 @@ namespace MyWallet.Shared.DTO
         public bool IsFixed { get; set; } = false;
 
         public int Type { get; set; }
+
+        public string Name { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
     }
 
     public class ExpenseDTO : ExpenseBaseDto
@@ -34,12 +38,18 @@ namespace MyWallet.Shared.DTO
         public string WalletName { get; set; }
 
         public string CategoryName { get; set; }
+
+        public int? ShoppingDay { get; set; }
+
+        public int WalletType { get; set; }
     }
 
     public class ExpenseEntryDTO : ExpenseBaseDto
     {
         public CategoryDTO? Category { get; set; }
         public WalletDTO? Wallet { get; set; }
+
+        public Guid? TrackingId { get; set; }
 
         public ExpenseEntryDTO ShallowCopy()
         {

@@ -4,6 +4,6 @@
     {
         Good = 1,
         Bad = 2,
-        SoSo = 3
+        Regular = 3
     }
 }

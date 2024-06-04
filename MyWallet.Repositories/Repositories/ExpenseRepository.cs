@@ -57,11 +57,15 @@ namespace MyWallet.Repositories.Repositories
             var expenses = await _context.Expenses
                    .Where(e => e.ExpenseDate.Date >= start.Date && e.ExpenseDate.Date <= end.Date).Include(e => e.Category).Select(e => new Expense
                    {
+                       Name = e.Name,
                        ExpenseDate = e.ExpenseDate,
+                       CreatedDate = e.CreatedDate,
                        Value = e.Value,
                        WalletId = e.WalletId,
                        Wallet = e.Wallet,
-                       WalletName = e.Wallet == null ? null : e.Wallet.Name,
+                       WalletName = e.Wallet.Name,
+                       ShoppingDay = e.Wallet.ShoppingDay == null ? null : e.Wallet.ShoppingDay,
+                       WalletType = ((int)e.Wallet.WalletType),
                        CategoryId = e.CategoryId,
                        Category = e.Category,
                        CategoryName = e.Category == null ? null : e.Category.Name,
@@ -75,6 +79,20 @@ namespace MyWallet.Repositories.Repositories
                    }).AsNoTracking().ToListAsync(cancellationToken);
 
             return expenses;
+        }
+
+        public async Task<IEnumerable<FixedEntry>> GetFixedEntriesActivesAsync(CancellationToken cancellationToken)
+        {
+            var fixedEntries = await _context.FixedEntries.Include(x => x.Category).Include(e => e.Wallet).ToListAsync(cancellationToken);
+
+            return fixedEntries;
+        }
+
+        public async Task<Balance> GetBalanceAsync(int month, int year, CancellationToken cancellationToken)
+        {
+            var balance = await _context.CalculateBalanceAsync(month, year, cancellationToken);
+
+            return balance;
         }
     }
 }

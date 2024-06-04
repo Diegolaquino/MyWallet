@@ -16,7 +16,7 @@ namespace MyWallet.API.Controllers
         {
             this._reminderService = reminderService;
         }
-        // GET: api/<RemindersController>
+        //GET: api/<RemindersController>
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(IEnumerable<ReminderDTO>), (int)HttpStatusCode.NoContent)]
         [HttpGet]
@@ -31,7 +31,7 @@ namespace MyWallet.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(IEnumerable<ReminderDTO>), (int)HttpStatusCode.NoContent)]
         [HttpGet("noResolved")]
-        public async Task<IActionResult> GetRemindersArctives(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetRemindersActives(CancellationToken cancellationToken)
         {
             var response = await _reminderService.GetRemindersNoResolvedAsync(cancellationToken);
 

@@ -18,12 +18,23 @@ try
     // Add services to the container.
     builder.Services.AddControllers();
 
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowOrigin", builder =>
+        {
+            builder.WithOrigins("https://localhost:4200")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowAnyOrigin();
+        });
+    });
+
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<ApplicationContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationContext")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
     //options.UseInMemoryDatabase("diegoteste"));
 
     builder.Services.AddAuthentication(options =>
@@ -53,19 +64,19 @@ try
     builder.Services.AddScoped<IHealthService, HealthService>();
     builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
     builder.Services.AddScoped<IExpenseService, ExpenseService>();
-    builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
-    builder.Services.AddScoped<IIncomeService, IncomeService>();
     builder.Services.AddScoped<IWalletRepository, WalletRepository>();
     builder.Services.AddScoped<IWalletService, WalletService>();
     builder.Services.AddScoped<IReminderService, ReminderService>();
     builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
-    builder.Services.AddScoped<IUoW, UoW>();
+    builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+    builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+    builder.Services.AddScoped<IGoalService, GoalService>();
+    builder.Services.AddScoped<IGoalRepository, GoalRepository>();
+    builder.Services.AddScoped<IUoW, UoW>(); 
 
 
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddSingleton(AutoMapperConfig.Configure());
-
-
 
     var app = builder.Build();
 
@@ -79,6 +90,8 @@ try
     app.UseHttpsRedirection();
 
     app.UseAuthorization();
+
+    app.UseCors("AllowOrigin");
 
     app.MapControllers();
 

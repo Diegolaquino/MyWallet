@@ -14,6 +14,11 @@ namespace MyWallet.Repositories.Base
         {
             _context = context;
         }
+        public async Task CommitAsync(CancellationToken cancellationToken)
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
         public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();
@@ -22,6 +27,7 @@ namespace MyWallet.Repositories.Base
 
     public interface IUoW
     {
+        Task CommitAsync(CancellationToken cancellationToken);
         Task CommitAsync();
     }
 }

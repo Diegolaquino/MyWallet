@@ -3,6 +3,7 @@
     public enum EWalletType
     {
         CreditCard = 1,
-        Account = 2
+        Account = 2,
+        Investiment = 3
     }
 }

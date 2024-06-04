@@ -13,6 +13,8 @@ namespace MyWallet.Domain.Models
         public EExerciseType ExerciseType { get; set; }
         public int? Repetitions { get; set; }  
         public string Tags { get; set; }
+
+        public int AVGHeartRate { get; set; }
         
         public Exercise(Guid id): base(id) { }
 

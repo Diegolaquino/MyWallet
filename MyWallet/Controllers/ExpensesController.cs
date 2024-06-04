@@ -73,5 +73,14 @@ namespace MyWallet.API.Controllers
 
             return StatusCode(response.StatusCode, response);
         }
+
+        // GET api/<ExpensesController>/5
+        [HttpGet("Balance")]
+        public async Task<IActionResult> GetBalance([FromQuery] int month, [FromQuery] int year, CancellationToken cancellationToken)
+        {
+            var response = await _expenseService.GetBalanceAsync(month, year, cancellationToken);
+
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }

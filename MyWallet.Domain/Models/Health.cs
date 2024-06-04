@@ -13,9 +13,12 @@ namespace MyWallet.Domain.Models
                 
         }
         public DateTime HealthDate { get; set; }
-        public int Systolic {  get; set; }
 
-        public int Diastolic { get; set; }
+        [Column(TypeName = "decimal(10,3)")]
+        public decimal Systolic {  get; set; }
+
+        [Column(TypeName = "decimal(10,3)")]
+        public decimal Diastolic { get; set; }
 
         [Column(TypeName = "decimal(10,3)")]
         public decimal Weight { get; set; }
@@ -24,6 +27,7 @@ namespace MyWallet.Domain.Models
 
         public bool IsTired { get; set; }
 
-        public int StomachSize { get; set; }
+        [Column(TypeName = "decimal(10,3)")]
+        public decimal StomachSize { get; set; }
     }
 }

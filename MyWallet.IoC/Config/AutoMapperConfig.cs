@@ -15,16 +15,20 @@ namespace MyWallet.IoC.Config
                 cfg.CreateMap<WalletDTO, Wallet>().ReverseMap();
                 cfg.CreateMap<ExpenseEntryDTO, Expense>()
                 .ReverseMap();
-                cfg.CreateMap<IncomeEntryDTO, Income>()
-                .ReverseMap();
 
                 cfg.CreateMap<Expense, ExpenseDTO>();
 
-                cfg.CreateMap<Income, IncomeDTO>();
+                cfg.CreateMap<FixedEntry, ExpenseDTO>();
+
+                cfg.CreateMap<Invoice, InvoiceDTO>();
+
+                cfg.CreateMap<Balance, BalanceDTO>();
 
                 cfg.CreateMap<ReminderDTO, Reminder>().ReverseMap();
 
                 cfg.CreateMap<Health, HealthDTO>().ReverseMap();
+
+                cfg.CreateMap<Goal, GoalDTO>().ReverseMap();
 
                 cfg.CreateMap<Exercise, ExerciseDTO> ().ReverseMap();
             });

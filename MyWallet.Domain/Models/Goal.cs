@@ -21,6 +21,9 @@ namespace MyWallet.Domain.Models
 
         public Guid CategoryId { get; set; }
 
-        public Category Category { get; set; }  
+        public Category Category { get; set; }
+
+        [NotMapped]
+        public string CategoryName { get; set; }
     }
 }

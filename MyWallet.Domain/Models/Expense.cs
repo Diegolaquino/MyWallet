@@ -28,6 +28,11 @@ namespace MyWallet.Domain.Models
         [NotMapped]
         public string WalletName { get; set; }
 
+        [NotMapped]
+        public int? ShoppingDay { get; set; }
+
+        [NotMapped]
+        public int WalletType { get; set; }
 
         [ForeignKey("CategoryId")]
         public Guid CategoryId { get; set; }
@@ -49,17 +54,25 @@ namespace MyWallet.Domain.Models
         [StringLength(200)]
         public string Comments { get; set; }
 
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(80)]
+        public string Name { get; set; }
+
         public int Installment { get; set; } = 1;
 
         public bool IsFixed { get; set; } = false;
 
-        public EType Type { get; set; }
+        public EType Type { get; set; } = EType.Expense;
+
+        public Guid? TrackingId { get; set; }
+        
     }
 
     public enum EType
     {
         Expense = 1,
-        Income = 2
+        Income = 2,
+        Others = 3
     }
 
     public class ExpenseAndCategory

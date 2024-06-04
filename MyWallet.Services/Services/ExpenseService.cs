@@ -6,7 +6,6 @@ using MyWallet.Repositories.Contracts;
 using MyWallet.Services.Contracts;
 using MyWallet.Services.Responses;
 using MyWallet.Shared.DTO;
-using System.ComponentModel;
 using System.Net;
 
 namespace MyWallet.Services.Services
@@ -46,14 +45,18 @@ namespace MyWallet.Services.Services
             try
             {
                 var objList = new List<Expense>();
-                var installments = expenseDTO.InstallmentsQuantity ?? 1;
+                var totalOfInstallments = expenseDTO.InstallmentsQuantity ?? 1;
+                var installmentValue = (expenseDTO.Value / totalOfInstallments);
+                var trackingId = Guid.NewGuid();
 
-                for (int i = 0; i < installments; i++)
+                for (int i = 0; i < totalOfInstallments; i++)
                 {
                     var clonedExpense = expenseDTO.ShallowCopy();
-                    clonedExpense.Value = (expenseDTO.Value / installments);
+                    clonedExpense.Value = installmentValue;
                     clonedExpense.AddMonth(i);
                     clonedExpense.AddInstallment(i + 1);
+                    clonedExpense.CreatedDate = DateTime.Now;
+                    clonedExpense.TrackingId = trackingId;
                     objList.Add(await _expenseRepository.AddAsync(_mapper.Map<Expense>(clonedExpense), cancellationToken));
                 }
 
@@ -88,7 +91,7 @@ namespace MyWallet.Services.Services
             {
                 await _expenseRepository.UpdateAsync(_mapper.Map<ExpenseEntryDTO, Expense>(expense), cancellationToken);
 
-                await _unitOfWork.CommitAsync();
+                await _unitOfWork.CommitAsync(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -115,6 +118,26 @@ namespace MyWallet.Services.Services
                 return new FailureResponse((int)HttpStatusCode.NoContent, "");
 
             return new SucessResponse<IEnumerable<ExpenseDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<ExpenseDTO>>(expenses));
+        }
+
+        public async Task<ResponseBase> GetFixedEntriesAsync(CancellationToken cancellationToken)
+        {
+            var entries = await _expenseRepository.GetFixedEntriesActivesAsync(cancellationToken);
+
+            if (entries is null)
+                return new FailureResponse((int)HttpStatusCode.NoContent, "");
+
+            return new SucessResponse<IEnumerable<ExpenseDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<ExpenseDTO>>(entries));
+        }
+
+        public async Task<ResponseBase> GetBalanceAsync(int month, int year, CancellationToken cancellationToken)
+        {
+            var balance = await _expenseRepository.GetBalanceAsync(month, year, cancellationToken);
+
+            if (balance is null)
+                return new FailureResponse((int)HttpStatusCode.NoContent, "balance not found");
+
+            return new SucessResponse<BalanceDTO>((int)HttpStatusCode.OK, _mapper.Map<BalanceDTO>(balance));
         }
     }
 }
