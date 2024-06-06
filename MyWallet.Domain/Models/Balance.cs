@@ -8,6 +8,8 @@
 
         public decimal? Expense { get; set; }
 
+        public decimal? FixedEntries { get; set; }
+
         public decimal? Total { get; set; }
     }
 }
