@@ -34,7 +34,15 @@ try
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<ApplicationContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlServerOptionsAction: sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 3, 
+                maxRetryDelay: TimeSpan.FromSeconds(30), 
+                errorNumbersToAdd: null); 
+        }));
     //options.UseInMemoryDatabase("diegoteste"));
 
     builder.Services.AddAuthentication(options =>
