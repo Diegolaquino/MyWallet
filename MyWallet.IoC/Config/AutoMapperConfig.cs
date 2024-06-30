@@ -13,6 +13,7 @@ namespace MyWallet.IoC.Config
                 cfg.CreateMap<Category, CategoryDTO>();
                 cfg.CreateMap<CategoryDTO, Category>();
                 cfg.CreateMap<WalletDTO, Wallet>().ReverseMap();
+                cfg.CreateMap<WalletMonthDTO, WalletMonth>().ReverseMap();
                 cfg.CreateMap<ExpenseEntryDTO, Expense>()
                 .ReverseMap();
 

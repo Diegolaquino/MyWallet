@@ -52,5 +52,11 @@ namespace MyWallet.Repositories.Repositories
             entity.UpdateDate();
             _context.Entry(entity).State = EntityState.Modified;
         }
+
+        public async Task<IEnumerable<WalletMonth>> GetWalletMonthAsync(int month, int year, int type, CancellationToken cancellationToken)
+        {
+            var obj = await _context.GetMonthlyExpensesWithTypeAsync(month, year, type, cancellationToken);
+            return obj;
+        }
     }
 }

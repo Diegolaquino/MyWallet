@@ -67,6 +67,16 @@ namespace MyWallet.Services.Services
             return new SucessResponse<WalletDTO>((int)HttpStatusCode.OK, _mapper.Map<WalletDTO>(wallet));
         }
 
+        public async Task<ResponseBase> GetWalletValueAsync(int month, int year, CancellationToken cancellationToken)
+        {
+            var wallets = await _walletRepository.GetWalletMonthAsync(month, year, type: 1, cancellationToken);
+
+            if (wallets is null)
+                return new FailureResponse((int)HttpStatusCode.NotFound, "");
+
+            return new SucessResponse<IEnumerable<WalletMonthDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<WalletMonth>, List<WalletMonthDTO>>(wallets));
+        }
+
         public async Task<ResponseBase> SaveAsync(WalletDTO dto, CancellationToken cancellationToken)
         {
             try

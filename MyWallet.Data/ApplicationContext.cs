@@ -16,6 +16,8 @@ namespace MyWallet.Data
 
         public DbSet<FixedEntry> FixedEntries { get; set; }
 
+        public DbSet<WalletMonth> WalletsMonth { get; set; }
+
         public DbSet<Wallet> Wallets { get; set; }
 
         public DbSet<Reminder> Reminders { get; set; }
@@ -45,6 +47,8 @@ namespace MyWallet.Data
                .HasColumnType("decimal(10,3)");
 
             modelBuilder.Entity<Balance>().HasNoKey();
+
+            modelBuilder.Entity<WalletMonth>().HasNoKey();
         }
 
         public async Task<Balance> CalculateBalanceAsync(int month, int year, CancellationToken cancellationToken)
@@ -61,6 +65,23 @@ namespace MyWallet.Data
                 .ToListAsync(cancellationToken);
 
             return results.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<WalletMonth>> GetMonthlyExpensesWithTypeAsync(int month, int year, int type, CancellationToken cancellationToken)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@p_month", month),
+                new SqlParameter("@p_year", year),
+                new SqlParameter("@p_type", type)
+            };
+
+            var results = await this.Set<WalletMonth>()
+                .FromSqlRaw("EXECUTE dbo.GetMonthlyExpensesWithType @p_month, @p_year, @p_type", parameters)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            return results;
         }
     }
 }
