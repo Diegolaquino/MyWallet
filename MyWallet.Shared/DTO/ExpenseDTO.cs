@@ -51,6 +51,8 @@ namespace MyWallet.Shared.DTO
 
         public Guid? TrackingId { get; set; }
 
+        public decimal? TotalValue { get; set; }
+
         public ExpenseEntryDTO ShallowCopy()
         {
             return (ExpenseEntryDTO)this.MemberwiseClone();

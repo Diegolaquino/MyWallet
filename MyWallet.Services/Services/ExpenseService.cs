@@ -53,6 +53,7 @@ namespace MyWallet.Services.Services
                 {
                     var clonedExpense = expenseDTO.ShallowCopy();
                     clonedExpense.Value = installmentValue;
+                    clonedExpense.TotalValue = expenseDTO.Value;
                     clonedExpense.AddMonth(i);
                     clonedExpense.AddInstallment(i + 1);
                     clonedExpense.CreatedDate = DateTime.Now;

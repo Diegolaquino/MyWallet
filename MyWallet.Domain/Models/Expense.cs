@@ -17,8 +17,11 @@ namespace MyWallet.Domain.Models
 
         public DateTime ExpenseDate { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,3)")]
         public decimal Value { get; set; }
+
+        [Column(TypeName = "decimal(18,3)")]
+        public decimal? TotalValue { get; set; }
 
         [ForeignKey("WalletId")]
         public Guid? WalletId { get; set; }
