@@ -1,5 +1,4 @@
 ﻿using MyWallet.Domain.Models;
-using System.Threading;
 
 namespace MyWallet.Repositories.Contracts
 {
@@ -10,5 +9,8 @@ namespace MyWallet.Repositories.Contracts
         Task<IEnumerable<FixedEntry>> GetFixedEntriesActivesAsync(CancellationToken cancellationToken);
 
         Task<Balance> GetBalanceAsync(int month, int year, CancellationToken cancellationToken);
+
+        Task<IEnumerable<Expense>> GetExpensesWithInstallmentsAsync(int month, int year, CancellationToken cancellationToken);
     }
+
 }

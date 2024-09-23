@@ -94,5 +94,15 @@ namespace MyWallet.Repositories.Repositories
 
             return balance;
         }
+
+        public async Task<IEnumerable<Expense>> GetExpensesWithInstallmentsAsync(int month, int year, CancellationToken cancellationToken)
+        {
+            var expenses = await _context.Expenses.Where(x => x.InstallmentsQuantity > 1 
+            && x.ExpenseDate.Month == month 
+            && x.ExpenseDate.Year == year)
+            .AsNoTracking().ToListAsync(cancellationToken);
+
+            return expenses;
+        }
     }
 }
