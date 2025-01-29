@@ -104,5 +104,12 @@ namespace MyWallet.Repositories.Repositories
 
             return expenses;
         }
+
+        public async Task<Expense> GetLastExpenseAsync(CancellationToken cancellationToken)
+        {
+            var expense = await _context.Expenses.OrderByDescending(x => x.CreatedDate).FirstAsync(cancellationToken);
+
+            return expense;
+        }
     }
 }

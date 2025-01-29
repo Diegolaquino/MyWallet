@@ -10,7 +10,7 @@ namespace MyWallet.Services.Contracts
         Task<ResponseBase> GetFixedEntriesAsync(CancellationToken cancellationToken);
 
         Task<ResponseBase> GetBalanceAsync(int month, int year, CancellationToken cancellationToken);
-
         Task<ResponseBase> GetExpenseWithInstallmentsAsync(int month, int year, CancellationToken cancellationToken);
+        Task<ResponseBase> GetLastExpenseAsync(CancellationToken cancellationToken);
     }
 }

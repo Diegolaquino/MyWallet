@@ -150,5 +150,15 @@ namespace MyWallet.Services.Services
 
             return new SucessResponse<IEnumerable<ExpenseDTO>>((int)HttpStatusCode.OK, _mapper.Map<IEnumerable<ExpenseDTO>>(expenses));
         }
+
+        public async Task<ResponseBase> GetLastExpenseAsync(CancellationToken cancellationToken)
+        {
+            var expenses = await _expenseRepository.GetLastExpenseAsync(cancellationToken);
+
+            if (expenses is null)
+                return new FailureResponse((int)HttpStatusCode.NoContent, "expenses not found");
+
+            return new SucessResponse<ExpenseDTO>((int)HttpStatusCode.OK, _mapper.Map<ExpenseDTO>(expenses));
+        }
     }
 }

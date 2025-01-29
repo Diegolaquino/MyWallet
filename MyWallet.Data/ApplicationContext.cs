@@ -32,6 +32,8 @@ namespace MyWallet.Data
 
         //public DbSet<Balance> Balances { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         public DbSet<ExpenseAndCategory> ExpenseAndCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

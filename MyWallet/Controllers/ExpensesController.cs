@@ -91,5 +91,13 @@ namespace MyWallet.API.Controllers
 
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpGet("lastentrie")]
+        public async Task<IActionResult> GetLastExpense(CancellationToken cancellationToken)
+        {
+            var response = await _expenseService.GetLastExpenseAsync(cancellationToken);
+
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }

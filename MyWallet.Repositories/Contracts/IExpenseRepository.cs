@@ -11,6 +11,8 @@ namespace MyWallet.Repositories.Contracts
         Task<Balance> GetBalanceAsync(int month, int year, CancellationToken cancellationToken);
 
         Task<IEnumerable<Expense>> GetExpensesWithInstallmentsAsync(int month, int year, CancellationToken cancellationToken);
+
+        Task<Expense> GetLastExpenseAsync(CancellationToken cancellationToken);
     }
 
 }
